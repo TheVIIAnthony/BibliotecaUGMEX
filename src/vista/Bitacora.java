@@ -1,3 +1,5 @@
+package vista;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -43,7 +45,6 @@ public class Bitacora extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca System");
-        setPreferredSize(new java.awt.Dimension(1000, 600));
         setResizable(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
