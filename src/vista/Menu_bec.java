@@ -44,7 +44,7 @@ public class Menu_bec extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 204, 204));
         jButton3.setText("Prestamos");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 130, 40));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 130, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo2_.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, -1));
