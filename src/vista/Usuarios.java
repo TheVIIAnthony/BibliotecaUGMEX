@@ -69,15 +69,25 @@ public class Usuarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabbedPane1.setBackground(new java.awt.Color(0, 153, 153));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 204, 204));
         jLabel9.setText("Crear nuevo usuario");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 204, 204));
         jLabel10.setText("Nombre");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 204, 204));
         jLabel11.setText("Seleccionar tipo de usuario:");
 
+        jTextField4.setBackground(new java.awt.Color(204, 255, 255));
+        jTextField4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTextField4.setForeground(new java.awt.Color(0, 204, 204));
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -85,10 +95,17 @@ public class Usuarios extends javax.swing.JFrame {
         });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 204, 204));
         jLabel12.setText("Seleccionar nivel de privilegio:");
 
+        jButton2.setBackground(new java.awt.Color(204, 255, 255));
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 204, 204));
         jButton2.setText("Registrar");
 
+        jComboBox1.setBackground(new java.awt.Color(204, 255, 255));
+        jComboBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(0, 204, 204));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Becario", "Administrativo" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +113,9 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
+        jComboBox2.setBackground(new java.awt.Color(204, 255, 255));
+        jComboBox2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jComboBox2.setForeground(new java.awt.Color(0, 204, 204));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estándar", "Administrador" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -132,7 +152,7 @@ public class Usuarios extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
@@ -151,12 +171,21 @@ public class Usuarios extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Alta Usuarios", jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 204, 204));
         jLabel2.setText("Consulta de usuarios");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 204, 204));
         jLabel3.setText("Ingresa un usuario");
 
+        jTextField2.setBackground(new java.awt.Color(204, 204, 204));
+        jTextField2.setForeground(new java.awt.Color(0, 204, 204));
+
+        jTable2.setBackground(new java.awt.Color(255, 255, 255));
+        jTable2.setForeground(new java.awt.Color(0, 204, 204));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -170,6 +199,8 @@ public class Usuarios extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
+        jButton5.setBackground(new java.awt.Color(204, 204, 204));
+        jButton5.setForeground(new java.awt.Color(0, 204, 204));
         jButton5.setText("Buscar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
