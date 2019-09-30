@@ -73,12 +73,25 @@ public class Libros extends javax.swing.JFrame {
 
         jTabbedPane4.setBackground(new java.awt.Color(0, 153, 153));
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel9.setBackground(new java.awt.Color(0, 204, 204));
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 204, 204));
         jLabel9.setText("Buscar libros por: nombre, autor, editorial...");
 
+        jTextField7.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTextField7.setForeground(new java.awt.Color(0, 204, 204));
+
+        jLabel10.setBackground(new java.awt.Color(0, 204, 204));
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 204, 204));
         jLabel10.setText("Consultar libros");
 
+        jTable2.setBackground(new java.awt.Color(255, 255, 255));
+        jTable2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTable2.setForeground(new java.awt.Color(0, 204, 204));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -92,6 +105,9 @@ public class Libros extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jButton6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(0, 204, 204));
         jButton6.setText("Buscar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -99,7 +115,7 @@ public class Libros extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(428, Short.MAX_VALUE)
+                .addContainerGap(414, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(73, 73, 73)
@@ -127,7 +143,7 @@ public class Libros extends javax.swing.JFrame {
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -213,7 +229,7 @@ public class Libros extends javax.swing.JFrame {
         jLabel21.setText("ISBN");
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, -1, -1));
 
-        jTextField14.setBackground(null);
+        jTextField14.setBackground(new java.awt.Color(255, 255, 255));
         jTextField14.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jTextField14.setForeground(new java.awt.Color(0, 204, 204));
         jPanel1.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, 150, -1));
@@ -228,17 +244,17 @@ public class Libros extends javax.swing.JFrame {
         jLabel22.setText("Origen");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, -1, -1));
 
-        jTextField15.setBackground(null);
+        jTextField15.setBackground(new java.awt.Color(255, 255, 255));
         jTextField15.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jTextField15.setForeground(new java.awt.Color(0, 204, 204));
         jPanel1.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 210, 150, -1));
 
-        jTextField16.setBackground(null);
+        jTextField16.setBackground(new java.awt.Color(255, 255, 255));
         jTextField16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jTextField16.setForeground(new java.awt.Color(0, 204, 204));
         jPanel1.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 260, 150, -1));
 
-        jComboBox1.setBackground(null);
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jComboBox1.setForeground(new java.awt.Color(0, 204, 204));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Donación", "Compra", " " }));
@@ -249,12 +265,23 @@ public class Libros extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("Alta libros", jPanel1);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 204, 204));
         jLabel7.setText("Busca libros por: autor, nombre, editorial..");
 
+        jTextField6.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTextField6.setForeground(new java.awt.Color(0, 204, 204));
+
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 204, 204));
         jLabel8.setText("Eliminar libros");
 
+        jTable1.setBackground(new java.awt.Color(255, 255, 255));
+        jTable1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(0, 204, 204));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -268,8 +295,14 @@ public class Libros extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 204, 204));
         jButton2.setText("Eliminar");
 
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
+        jButton5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(0, 204, 204));
         jButton5.setText("Buscar");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -309,7 +342,7 @@ public class Libros extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
