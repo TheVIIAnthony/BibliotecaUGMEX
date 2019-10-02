@@ -100,6 +100,11 @@ public class Principal extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 204, 204));
         jButton2.setText("Circulo Lector");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 160, 50));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
@@ -128,6 +133,12 @@ public class Principal extends javax.swing.JFrame {
         Login log = new Login();
         log.setVisible(true); 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Consul_CLector v = new Consul_CLector();
+        v.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
