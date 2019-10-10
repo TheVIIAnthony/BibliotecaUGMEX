@@ -1,0 +1,23 @@
+create table libros (
+isbn int not null,
+titulo varchar(50) not null,
+autor varchar(50) not null,
+edicion varchar(10) not null,
+año varchar(10) not null,
+unidades int not null,
+area varchar(30) not null,
+num_paginas int not null,
+origen varchar(20),
+folio varchar(25),
+primary key(isbn)
+);
+
+create table usuarios (
+IdUsuario int auto_increment,
+nombreUsuario varchar(15) not null,
+tipoUsuario varchar(15) not null,
+nivelPrivilegio varchar(15) not null,
+contraseña varchar(15) not null,
+fecha date not null,
+primary key(IdUsuario)
+);

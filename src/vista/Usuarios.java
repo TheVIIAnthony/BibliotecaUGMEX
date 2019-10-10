@@ -6,8 +6,12 @@ import static esecuele.conexion.getConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 //import java.sql.Connection;
 //import java.sql.Statement;
@@ -45,15 +49,15 @@ public class Usuarios extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        CampoDeBusqueda = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaConsulta = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        campoDeBusqueda2 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -94,13 +98,13 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel3.setText("Ingresa un usuario");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 75, -1, -1));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 480, 30));
+        CampoDeBusqueda.setBackground(new java.awt.Color(255, 255, 255));
+        CampoDeBusqueda.setForeground(new java.awt.Color(0, 204, 204));
+        jPanel2.add(CampoDeBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 480, 30));
 
-        jTable2.setBackground(new java.awt.Color(255, 255, 255));
-        jTable2.setForeground(new java.awt.Color(0, 204, 204));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaConsulta.setBackground(new java.awt.Color(255, 255, 255));
+        tablaConsulta.setForeground(new java.awt.Color(0, 204, 204));
+        tablaConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -111,22 +115,34 @@ public class Usuarios extends javax.swing.JFrame {
                 "Nombre", "Fecha de registro", "Puesto", "Privilegios"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable2);
+        tablaConsulta.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tablaConsulta);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 840, 460));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setForeground(new java.awt.Color(0, 204, 204));
         jButton5.setText("Buscar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 97, 30));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
@@ -145,10 +161,10 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel5.setText("Buscar Usuario");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 430, 30));
+        campoDeBusqueda2.setBackground(new java.awt.Color(255, 255, 255));
+        campoDeBusqueda2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        campoDeBusqueda2.setForeground(new java.awt.Color(0, 204, 204));
+        jPanel4.add(campoDeBusqueda2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 430, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 204, 204));
@@ -191,6 +207,11 @@ public class Usuarios extends javax.swing.JFrame {
         jButton7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton7.setForeground(new java.awt.Color(0, 204, 204));
         jButton7.setText("Buscar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 94, 30));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
@@ -331,10 +352,46 @@ public class Usuarios extends javax.swing.JFrame {
         ps.setString(3, valorCB2);
         ps.setString(4, contra2);
         ps.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Usuario Creado Exitosamente");
         }catch(SQLException e){
             System.out.println(e);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Connection con = getConnection();
+//        String valorBusqueda = campoDeBusqueda2.getText();
+        String sql = "SELECT * FROM usuarios";
+//        WHERE nombreUsuario OR tipoUsuario OR nivelPrivilegio = ?
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            tablaConsulta.setModel(modelo);
+            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setString(1, valorBusqueda);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int cantColumnas = rsmd.getColumnCount();
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("Puesto");
+            modelo.addColumn("Privilegios");
+            while(rs.next()){
+                Object[] filas = new Object[cantColumnas];
+                for(int i = 0; i<cantColumnas; i++ ){
+                    filas[i] = rs.getObject(i+1);
+                }
+                modelo.addRow(filas);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -372,8 +429,10 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CampoDeBusqueda;
     private javax.swing.JPasswordField campoContra;
     private javax.swing.JPasswordField campoContra2;
+    private javax.swing.JTextField campoDeBusqueda2;
     private javax.swing.JTextField campoNombre;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -401,11 +460,9 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JComboBox<String> nivelPrivilegio;
+    private javax.swing.JTable tablaConsulta;
     private javax.swing.JComboBox<String> tipoUsuario;
     // End of variables declaration//GEN-END:variables
 }
