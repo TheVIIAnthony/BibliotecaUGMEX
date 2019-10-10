@@ -313,19 +313,26 @@ public class Usuarios extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{ 
         String nombre = campoNombre.getText();
-        String valorCB1 = (String) tipoUsuario.getSelectedItem();
-        String valorCB2 = (String) nivelPrivilegio.getSelectedItem();
+        String valorCB1 = tipoUsuario.getSelectedItem().toString();
+        String valorCB2 = nivelPrivilegio.getSelectedItem().toString();
         String contra = campoContra.getText();
         String contra2 = campoContra2.getText();
         Connection con = getConnection();
-        String cadena = "INSERT INTO usuarios(nombreUsuario, tipoUsuario, nivelPrivilegio, contraseña)values(@nombre,@valorCB1,@valorCB2,@contra)";
+        if(contra.equals(contra2)){
+//            JOptionPane.showMessageDialog(null, "las contraseñas son iguales");
+        }else{
+            JOptionPane.showMessageDialog(null, "las contraseñas no son iguales");
+        }
+        String cadena = "INSERT INTO usuarios(nombreUsuario, tipoUsuario, nivelPrivilegio, contraseña)values(?,?,?,?)";
         PreparedStatement ps;
         ps = con.prepareStatement(cadena);
-        ResultSet res;
-        res = ps.executeQuery();
-//        JOptionPane.showMessageDialog(null, "conexion exitosa");
+        ps.setString(1, nombre);
+        ps.setString(2, valorCB1);
+        ps.setString(3, valorCB2);
+        ps.setString(4, contra2);
+        ps.executeUpdate();
         }catch(SQLException e){
-//            JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
