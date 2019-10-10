@@ -1,5 +1,18 @@
 package vista;
 
+//import esecuele.conexion;
+
+import static esecuele.conexion.getConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
+//import java.sql.Connection;
+//import java.sql.Statement;
+//import java.sql.ResultSet;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -52,13 +65,13 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        campoNombre = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        tipoUsuario = new javax.swing.JComboBox<>();
+        nivelPrivilegio = new javax.swing.JComboBox<>();
+        campoContra2 = new javax.swing.JPasswordField();
+        campoContra = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -206,15 +219,15 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel11.setText("Seleccionar tipo de usuario:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, 20));
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(0, 204, 204));
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        campoNombre.setBackground(new java.awt.Color(255, 255, 255));
+        campoNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        campoNombre.setForeground(new java.awt.Color(0, 204, 204));
+        campoNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                campoNombreActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 137, 30));
+        jPanel1.add(campoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 137, 30));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 204, 204));
@@ -232,30 +245,30 @@ public class Usuarios extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, -1, 30));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 204, 204));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Becario", "Administrativo" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        tipoUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        tipoUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        tipoUsuario.setForeground(new java.awt.Color(0, 204, 204));
+        tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Becario", "Administrativo" }));
+        tipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                tipoUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 137, 30));
+        jPanel1.add(tipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 137, 30));
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(0, 204, 204));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estándar", "Administrador" }));
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 137, 30));
+        nivelPrivilegio.setBackground(new java.awt.Color(255, 255, 255));
+        nivelPrivilegio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        nivelPrivilegio.setForeground(new java.awt.Color(0, 204, 204));
+        nivelPrivilegio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estándar", "Administrador" }));
+        jPanel1.add(nivelPrivilegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 137, 30));
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, 140, 30));
+        campoContra2.setBackground(new java.awt.Color(255, 255, 255));
+        campoContra2.setForeground(new java.awt.Color(0, 204, 204));
+        jPanel1.add(campoContra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, 140, 30));
 
-        jPasswordField2.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordField2.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel1.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 140, 30));
+        campoContra.setBackground(new java.awt.Color(255, 255, 255));
+        campoContra.setForeground(new java.awt.Color(0, 204, 204));
+        jPanel1.add(campoContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 140, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 204, 204));
@@ -283,22 +296,37 @@ public class Usuarios extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void campoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_campoNombreActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void tipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_tipoUsuarioActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try{ 
+        String nombre = campoNombre.getText();
+        String valorCB1 = (String) tipoUsuario.getSelectedItem();
+        String valorCB2 = (String) nivelPrivilegio.getSelectedItem();
+        String contra = campoContra.getText();
+        String contra2 = campoContra2.getText();
+        Connection con = getConnection();
+        String cadena = "INSERT INTO usuarios(nombreUsuario, tipoUsuario, nivelPrivilegio, contraseña)values(@nombre,@valorCB1,@valorCB2,@contra)";
+        PreparedStatement ps;
+        ps = con.prepareStatement(cadena);
+        ResultSet res;
+        res = ps.executeQuery();
+//        JOptionPane.showMessageDialog(null, "conexion exitosa");
+        }catch(SQLException e){
+//            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -337,12 +365,13 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField campoContra;
+    private javax.swing.JPasswordField campoContra2;
+    private javax.swing.JTextField campoNombre;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -362,8 +391,6 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -371,6 +398,7 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JComboBox<String> nivelPrivilegio;
+    private javax.swing.JComboBox<String> tipoUsuario;
     // End of variables declaration//GEN-END:variables
 }

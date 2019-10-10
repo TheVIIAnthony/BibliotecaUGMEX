@@ -5,10 +5,25 @@
  */
 package esecuele;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
  *
  * @author Usuario
  */
-public class conexion {
-    
+public class conexion {    
+    public static final String URL = "jdbc:mysql://127.0.0.1:3306/cid?useLegacyDatetimeCode=false&serverTimezone=UTC";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "1234";
+    public static Connection getConnection(){
+        Connection con = null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
 }
