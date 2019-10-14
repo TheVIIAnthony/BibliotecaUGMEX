@@ -37,7 +37,6 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tipoUsuarioCB = new javax.swing.JComboBox<>();
         campoContraseña = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         campoNombreUsuario = new javax.swing.JTextField();
@@ -48,12 +47,6 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tipoUsuarioCB.setBackground(new java.awt.Color(255, 255, 255));
-        tipoUsuarioCB.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        tipoUsuarioCB.setForeground(new java.awt.Color(0, 0, 0));
-        tipoUsuarioCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Administrador", "Becario" }));
-        getContentPane().add(tipoUsuarioCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 150, 30));
-
         campoContraseña.setBackground(new java.awt.Color(255, 255, 255));
         campoContraseña.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         campoContraseña.setForeground(new java.awt.Color(0, 204, 204));
@@ -62,7 +55,7 @@ public class Login extends javax.swing.JFrame {
                 campoContraseñaActionPerformed(evt);
             }
         });
-        getContentPane().add(campoContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 150, 30));
+        getContentPane().add(campoContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 150, 30));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -73,25 +66,26 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 130, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 130, 40));
 
         campoNombreUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(campoNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 150, 30));
+        getContentPane().add(campoNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 150, 30));
 
         nombeUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         nombeUsuario.setForeground(new java.awt.Color(0, 0, 0));
         nombeUsuario.setText("Nombre de Usuario");
-        getContentPane().add(nombeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, 20));
+        getContentPane().add(nombeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, 20));
 
         contraseña.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         contraseña.setForeground(new java.awt.Color(0, 0, 0));
         contraseña.setText("Contraseña");
-        getContentPane().add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, -1, -1));
+        getContentPane().add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo2_.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 400));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoContraseñaActionPerformed
@@ -100,35 +94,51 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection con = getConnection();
-        String TU = tipoUsuarioCB.getSelectedItem().toString();
         String nombreUsuario = campoNombreUsuario.getText();
         String contraseña = campoContraseña.getText();
-        String sql = "SELECT * FROM usuarios WHERE tipoUsuario = ? AND nombreUsuario = ? AND contraseña = ?";
+        String sql = "SELECT * FROM usuarios WHERE nombreUsuario = ? AND contraseña = ?";
         ResultSet rs;
-        if(TU.equals("Seleccionar")||nombreUsuario.equals("")||contraseña.equals("")){
+        if(nombreUsuario.equals("")||contraseña.equals("")){
             JOptionPane.showMessageDialog(null, "Algunos campos estan vacios");
         }else{
             try{
                 PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, TU);
-                ps.setString(2, nombreUsuario);
-                ps.setString(3, contraseña); 
+                ps.setString(1, nombreUsuario);
+                ps.setString(2, contraseña); 
                 rs = ps.executeQuery();
                 if(rs.next()){
-                String sl = rs.getString("tipoUsuario");
-                if(TU.equalsIgnoreCase("Administrador") && sl.equalsIgnoreCase("Administrativo")){
-                    Menu_admin ventanaAdmin = new Menu_admin();
-                    ventanaAdmin.setVisible(true);
-                    this.setVisible(false);
+                String sl = rs.getString("nivelPrivilegio");
+//                String nu = rs.getString("nombreUsuario");
+                switch(sl){
+                    case "Administrador":
+                        Menu_admin ventanaAdmin = new Menu_admin();
+                        ventanaAdmin.setVisible(true);
+                        this.setVisible(false);
+                        break;
+                    case "Estándar":
+                        Menu_bec ventanaBecario = new Menu_bec();
+                        ventanaBecario.setVisible(true);
+                        this.setVisible(false);
+                        break;
                 }
-                if(TU.equalsIgnoreCase("Becario")&& sl.equalsIgnoreCase("Becario")){
-                    Menu_bec ventanaBecario = new Menu_bec();
-                    ventanaBecario.setVisible(true);
-                    this.setVisible(false);
-                }
-                else{
-                    JOptionPane.showMessageDialog(rootPane, "error al iniciar sesión");
-                }
+/*
+                
+                UNA ALTERNATIVA QUE NO FUNCIONÓ
+                
+                */
+//                if(NP.equalsIgnoreCase("Administrador") && sl.equalsIgnoreCase("Administrador")){
+//                    Menu_admin ventanaAdmin = new Menu_admin();
+//                    ventanaAdmin.setVisible(true);
+//                    this.setVisible(false);
+//                }
+//                if(NP.equalsIgnoreCase("Becario")&& sl.equalsIgnoreCase("Becario")){
+//                    Menu_bec ventanaBecario = new Menu_bec();
+//                    ventanaBecario.setVisible(true);
+//                    this.setVisible(false);
+//                }
+//                else{
+//                    JOptionPane.showMessageDialog(rootPane, "error al iniciar sesión");
+//                }
                 
                 }
             }catch(SQLException e){
@@ -180,6 +190,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nombeUsuario;
-    private javax.swing.JComboBox<String> tipoUsuarioCB;
     // End of variables declaration//GEN-END:variables
 }

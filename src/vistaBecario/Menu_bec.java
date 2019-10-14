@@ -47,9 +47,10 @@ public class Menu_bec extends javax.swing.JFrame {
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 130, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo2_.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 400));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

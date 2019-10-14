@@ -81,24 +81,30 @@ public class Menu_admin extends javax.swing.JFrame {
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 130, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo2_.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 400));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
         UsuariosAdmin user = new UsuariosAdmin();
         user.setVisible(true); 
+        this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Libros lib = new Libros();
+        LibrosAdmin lib = new LibrosAdmin();
         lib.setVisible(true); 
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+        PrestamosAdmin ventanaPrestamos = new PrestamosAdmin();
+        ventanaPrestamos.setVisible(true);
+        this.setVisible(false);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
