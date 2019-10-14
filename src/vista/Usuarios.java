@@ -1,7 +1,4 @@
 package vista;
-
-//import esecuele.conexion;
-
 import static esecuele.conexion.getConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,29 +10,46 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-//import java.sql.Connection;
-//import java.sql.Statement;
-//import java.sql.ResultSet;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Usuario
- */
 public class Usuarios extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Usuarios
-     */
+    //COMENTAR ESTO SOBRE ESTA LINEA
+    Connection con = getConnection();
+    //HASTA AQUI - DESPUES BORRAR ESTA LINEA
     public Usuarios() {
         initComponents();
     }
-
+    /* 
+    COMENTAR DESDE AQUI 
+    (RECUERDA ESPECIFICAR ACCIONES)
+    */
+    void mostrarTabla(){
+        DefaultTableModel modelo2 = new DefaultTableModel();
+        modelo2.addColumn("Nombre");
+        modelo2.addColumn("Fecha de Registro");
+        modelo2.addColumn("Puesto");
+        modelo2.addColumn("Privilegios");
+        String sql = "SELECT * FROM usuarios";
+        
+        String datos[] = new String[4];
+        PreparedStatement pt;
+        try{
+            pt = con.prepareStatement(sql);
+            ResultSet rs = pt.executeQuery();
+            while(rs.next()){
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                modelo2.addRow(datos);
+            }
+            tablaConsulta.setModel(modelo2);
+        }catch(Exception e){
+            
+        }
+    }
+    /* 
+    COMENTAR HASTA AQUI 
+    (DESPUES BORRAR)
+    */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,22 +63,12 @@ public class Usuarios extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        CampoDeBusqueda = new javax.swing.JTextField();
+        campoDeBusqueda = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaConsulta = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        campoDeBusqueda2 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jButton7 = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        Eliminar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -83,229 +87,162 @@ public class Usuarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPane1.setBackground(new java.awt.Color(0, 153, 153));
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(875, 500));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel2.setText("Consulta de usuarios");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Consulta y Eliminar usuarios");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Ingresa un usuario");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 75, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
-        CampoDeBusqueda.setBackground(new java.awt.Color(255, 255, 255));
-        CampoDeBusqueda.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel2.add(CampoDeBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 480, 30));
-
-        tablaConsulta.setBackground(new java.awt.Color(255, 255, 255));
-        tablaConsulta.setForeground(new java.awt.Color(0, 204, 204));
-        tablaConsulta.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Fecha de registro", "Puesto", "Privilegios"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        campoDeBusqueda.setBackground(new java.awt.Color(255, 255, 255));
+        campoDeBusqueda.setForeground(new java.awt.Color(0, 0, 0));
+        campoDeBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoDeBusquedaActionPerformed(evt);
             }
         });
+        campoDeBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoDeBusquedaKeyPressed(evt);
+            }
+        });
+        jPanel2.add(campoDeBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 480, 30));
+
+        tablaConsulta.setBackground(new java.awt.Color(255, 255, 255));
+        tablaConsulta.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        tablaConsulta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
         tablaConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaConsulta);
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 840, 460));
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 840, 330));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jButton5.setForeground(new java.awt.Color(0, 204, 204));
+        jButton5.setForeground(new java.awt.Color(0, 0, 0));
         jButton5.setText("Buscar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 97, 30));
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 97, 30));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 620, -1));
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/800x600.png"))); // NOI18N
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, -1, -1));
-
-        jTabbedPane1.addTab("Consultar Usuarios", jPanel2);
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel5.setText("Buscar Usuario");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
-
-        campoDeBusqueda2.setBackground(new java.awt.Color(255, 255, 255));
-        campoDeBusqueda2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        campoDeBusqueda2.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel4.add(campoDeBusqueda2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 430, 30));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel8.setText("Eliminar Usuario");
-        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
-
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 204, 204));
-        jButton1.setText("Eliminar");
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 170, -1, 30));
-
-        jTable3.setBackground(new java.awt.Color(255, 255, 255));
-        jTable3.setForeground(new java.awt.Color(0, 204, 204));
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Fecha de registro", "Puesto", "Privilegios"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable3.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(jTable3);
-
-        jPanel4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 820, 360));
-
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(0, 204, 204));
-        jButton7.setText("Buscar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        Eliminar.setBackground(new java.awt.Color(255, 255, 255));
+        Eliminar.setForeground(new java.awt.Color(0, 0, 0));
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                EliminarActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 94, 30));
+        jPanel2.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 100, 30));
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
-        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/800x600.png"))); // NOI18N
-        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, -1, -1));
-
-        jTabbedPane1.addTab("Eliminar Usuarios", jPanel4);
+        jTabbedPane1.addTab("Consultar/Eliminar Usuarios", jPanel2);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Crear nuevo usuario");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Nombre");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, -1, 20));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, 20));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Seleccionar tipo de usuario:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, 20));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, 20));
 
         campoNombre.setBackground(new java.awt.Color(255, 255, 255));
         campoNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        campoNombre.setForeground(new java.awt.Color(0, 204, 204));
+        campoNombre.setForeground(new java.awt.Color(0, 0, 0));
         campoNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoNombreActionPerformed(evt);
             }
         });
-        jPanel1.add(campoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 137, 30));
+        jPanel1.add(campoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, 137, 30));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Seleccionar nivel de privilegio:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, 20));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, 20));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 204, 204));
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Registrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, -1, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 510, -1, 30));
 
         tipoUsuario.setBackground(new java.awt.Color(255, 255, 255));
         tipoUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        tipoUsuario.setForeground(new java.awt.Color(0, 204, 204));
+        tipoUsuario.setForeground(new java.awt.Color(0, 0, 0));
         tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Becario", "Administrativo" }));
         tipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipoUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(tipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 137, 30));
+        jPanel1.add(tipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 137, 30));
 
         nivelPrivilegio.setBackground(new java.awt.Color(255, 255, 255));
         nivelPrivilegio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        nivelPrivilegio.setForeground(new java.awt.Color(0, 204, 204));
+        nivelPrivilegio.setForeground(new java.awt.Color(0, 0, 0));
         nivelPrivilegio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estándar", "Administrador" }));
-        jPanel1.add(nivelPrivilegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 137, 30));
+        jPanel1.add(nivelPrivilegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 137, 30));
 
         campoContra2.setBackground(new java.awt.Color(255, 255, 255));
-        campoContra2.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel1.add(campoContra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, 140, 30));
+        campoContra2.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(campoContra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 430, 140, 30));
 
         campoContra.setBackground(new java.awt.Color(255, 255, 255));
-        campoContra.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel1.add(campoContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 140, 30));
+        campoContra.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(campoContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 370, 140, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Repetir contraseña");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Contraseña");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, -1, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/800x600.png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 840, 400));
 
         jTabbedPane1.addTab("Alta Usuarios", jPanel1);
 
@@ -317,62 +254,64 @@ public class Usuarios extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void campoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoNombreActionPerformed
 
     private void tipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tipoUsuarioActionPerformed
-
+    /* 
+    COMENTAR DESDE AQUI 
+    (RECUERDA ESPECIFICAR ACCIONES)
+    */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try{ 
-        String nombre = campoNombre.getText();
-        String valorCB1 = tipoUsuario.getSelectedItem().toString();
-        String valorCB2 = nivelPrivilegio.getSelectedItem().toString();
-        String contra = campoContra.getText();
-        String contra2 = campoContra2.getText();
-        Connection con = getConnection();
-        if(contra.equals(contra2)){
-//            JOptionPane.showMessageDialog(null, "las contraseñas son iguales");
-        }else{
-            JOptionPane.showMessageDialog(null, "las contraseñas no son iguales");
-        }
-        String cadena = "INSERT INTO usuarios(nombreUsuario, tipoUsuario, nivelPrivilegio, contraseña)values(?,?,?,?)";
-        PreparedStatement ps;
-        ps = con.prepareStatement(cadena);
-        ps.setString(1, nombre);
-        ps.setString(2, valorCB1);
-        ps.setString(3, valorCB2);
-        ps.setString(4, contra2);
-        ps.executeUpdate();
-        JOptionPane.showMessageDialog(null, "Usuario Creado Exitosamente");
+        try{
+            String nombre = campoNombre.getText();
+            String valorCB1 = tipoUsuario.getSelectedItem().toString();
+            String valorCB2 = nivelPrivilegio.getSelectedItem().toString();
+            String contra = campoContra.getText();
+            String contra2 = campoContra2.getText();
+            if(contra.equals(contra2)){
+                //            JOptionPane.showMessageDialog(null, "las contraseñas son iguales");
+            }else{
+                JOptionPane.showMessageDialog(null, "las contraseñas no son iguales");
+            }
+            String cadena = "INSERT INTO usuarios(nombreUsuario, tipoUsuario, nivelPrivilegio, contraseña)values(?,?,?,?)";
+            PreparedStatement ps;
+            ps = con.prepareStatement(cadena);
+            ps.setString(1, nombre);
+            ps.setString(2, valorCB1);
+            ps.setString(3, valorCB2);
+            ps.setString(4, contra2);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Usuario Creado Exitosamente");
         }catch(SQLException e){
             System.out.println(e);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
-        
-    }//GEN-LAST:event_jButton7ActionPerformed
-
+    /* 
+    COMENTAR HASTA AQUI 
+    (DESPUES BORRAR)
+    */
+    private void campoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNombreActionPerformed
+    /* 
+    COMENTAR DESDE AQUI 
+    (RECUERDA ESPECIFICAR ACCIONES)
+    */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Connection con = getConnection();
-//        String valorBusqueda = campoDeBusqueda2.getText();
-        String sql = "SELECT * FROM usuarios";
-//        WHERE nombreUsuario OR tipoUsuario OR nivelPrivilegio = ?
+        String valorBusqueda = campoDeBusqueda.getText();
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             tablaConsulta.setModel(modelo);
+            String sql = "SELECT * FROM usuarios WHERE nombreUsuario = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setString(1, valorBusqueda);
+            ps.setString(1, valorBusqueda);
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
             int cantColumnas = rsmd.getColumnCount();
@@ -386,12 +325,44 @@ public class Usuarios extends javax.swing.JFrame {
                     filas[i] = rs.getObject(i+1);
                 }
                 modelo.addRow(filas);
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
+    /* 
+    COMENTAR HASTA AQUI 
+    (DESPUES BORRAR)
+    */
+    private void campoDeBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDeBusquedaKeyPressed
+        // realizar busqueda al presionar enter
+    }//GEN-LAST:event_campoDeBusquedaKeyPressed
+    /* 
+    COMENTAR DESDE AQUI
+    (RECUERDA ESPECIFICAR ACCIONES)
+    */
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        int fila = tablaConsulta.getSelectedRow();
+        String valor = tablaConsulta.getValueAt(fila, 0).toString();
+        if(fila>= 0){
+            try{
+                PreparedStatement ps = con.prepareStatement("DELETE FROM usuarios WHERE IdUsuario ='"+ valor +"'");
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Dato eliminado");
+                mostrarTabla();
+            }catch(SQLException e){
+                
+            }
+        }
+    }//GEN-LAST:event_EliminarActionPerformed
+    /* 
+    COMENTAR HASTA AQUI 
+    (DESPUES BORRAR)
+    */
+    private void campoDeBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDeBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoDeBusquedaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,38 +400,28 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CampoDeBusqueda;
+    private javax.swing.JButton Eliminar;
     private javax.swing.JPasswordField campoContra;
     private javax.swing.JPasswordField campoContra2;
-    private javax.swing.JTextField campoDeBusqueda2;
+    private javax.swing.JTextField campoDeBusqueda;
     private javax.swing.JTextField campoNombre;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JComboBox<String> nivelPrivilegio;
     private javax.swing.JTable tablaConsulta;
     private javax.swing.JComboBox<String> tipoUsuario;
