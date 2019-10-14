@@ -21,3 +21,16 @@ contraseña varchar(15) not null,
 fecha date not null,
 primary key(IdUsuario)
 );
+
+create table libros(
+isbn int auto_increment,
+Folio varchar (25) not null,
+Nombre varchar (25) not null,
+Editorial varchar (25) not null,
+Autor varchar (25) not null,
+Area varchar (25) not null,
+Edicion varchar (25) not null,
+Unidades int not null,
+Disponibles int not null,
+primary key(isbn)
+);
