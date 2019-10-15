@@ -37,6 +37,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
         jTable4 = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -130,6 +131,16 @@ public class LibrosAdmin extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setForeground(new java.awt.Color(0, 0, 0));
+        jButton3.setText("Volver");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, -1, -1));
 
         jTabbedPane4.addTab("Consultar libros", jPanel2);
 
@@ -340,6 +351,12 @@ public class LibrosAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Menu_admin ventana = new Menu_admin();
+        ventana.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -379,6 +396,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;

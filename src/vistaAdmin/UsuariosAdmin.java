@@ -115,6 +115,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         Eliminar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -205,6 +206,16 @@ public class UsuariosAdmin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 100, 30));
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, -1, -1));
 
         jTabbedPane1.addTab("Consultar/Eliminar Usuarios", jPanel2);
 
@@ -418,6 +429,12 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         filtrarDatos(campoDeBusqueda.getText());
     }//GEN-LAST:event_campoDeBusquedaKeyReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Menu_admin ventana = new Menu_admin();
+        ventana.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -460,6 +477,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
     private javax.swing.JPasswordField campoContra2;
     private javax.swing.JTextField campoDeBusqueda;
     private javax.swing.JTextField campoNombre;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
