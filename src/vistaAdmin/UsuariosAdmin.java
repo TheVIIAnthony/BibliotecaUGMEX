@@ -50,6 +50,52 @@ public class UsuariosAdmin extends javax.swing.JFrame {
     COMENTAR HASTA AQUI 
     (DESPUES BORRAR)
     */
+    
+    /* 
+    COMENTAR DESDE AQUI 
+    (RECUERDA ESPECIFICAR ACCIONES)
+    */
+    public void filtrarDatos(String valor){
+        String[] titulos = {"Nombre","Puesto","Privilegios"};
+         String[] registros = new String[3];
+         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+         String sql = "select * from usuarios where nombreUsuario like '%"+valor+"%' ";
+         try{
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery();
+             while(rs.next()){
+                 registros[0] = rs.getString("nombreUsuario");
+//                 registros[1] = rs.getString("");
+                 registros[1] = rs.getString("tipoUsuario");
+                 registros[2] = rs.getString("nivelPrivilegio");
+                 modelo.addRow(registros);
+             }
+             tablaConsulta.setModel(modelo);
+         }catch(SQLException ex){
+             JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
+         }
+    }
+    /* 
+    COMENTAR HASTA AQUI 
+    (DESPUES BORRAR)
+    */
+    
+    
+    /* 
+    COMENTAR DESDE AQUI 
+    (RECUERDA ESPECIFICAR ACCIONES)
+    */
+    void borrarCamposdeAlta(){
+        campoNombre.setText(null);
+        campoContra.setText(null);
+        campoContra2.setText(null);
+    }
+    /* 
+    COMENTAR HASTA AQUI 
+    (DESPUES BORRAR)
+    */
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,6 +158,9 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         campoDeBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 campoDeBusquedaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoDeBusquedaKeyReleased(evt);
             }
         });
         jPanel2.add(campoDeBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 480, 30));
@@ -289,6 +338,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
             ps.setString(4, contra2);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Usuario Creado Exitosamente");
+            borrarCamposdeAlta();
         }catch(SQLException e){
             System.out.println(e);
         }
@@ -325,7 +375,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
                     filas[i] = rs.getObject(i+1);
                 }
                 modelo.addRow(filas);
-
+                campoDeBusqueda.setText(null);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosAdmin.class.getName()).log(Level.SEVERE, null, ex);
@@ -361,8 +411,12 @@ public class UsuariosAdmin extends javax.swing.JFrame {
     (DESPUES BORRAR)
     */
     private void campoDeBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDeBusquedaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_campoDeBusquedaActionPerformed
+
+    private void campoDeBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDeBusquedaKeyReleased
+        filtrarDatos(campoDeBusqueda.getText());
+    }//GEN-LAST:event_campoDeBusquedaKeyReleased
 
     /**
      * @param args the command line arguments
