@@ -1,10 +1,18 @@
 package Inicio;
 
 import static esecuele.conexion.getConnection;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import vistaAdmin.BitacoraAdmin;
+import vistaAdmin.Crear_CLector;
+import vistaBecario.BitacoraBecario;
 import vistaBecario.Consul_CLector;
 
 /*
@@ -12,48 +20,133 @@ import vistaBecario.Consul_CLector;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Usuario
  */
 public class Principal extends javax.swing.JFrame {
-    Connection con = getConnection();
+
+    public Connection con = getConnection();
+
     public Principal() {
         initComponents();
         mostrarTabla();
+        validarSoloLetras(buscarpor);
     }
-    void mostrarTabla(){
+
+    public void validarSoloNumeros(JTextField campo) {
+        campo.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+    }
+
+    public void validarSoloLetras(JTextField campo) {
+        campo.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isLetter(c)) {
+                    e.consume();
+                }
+            }
+        });
+    }
+
+    public void filtrarDatos(String valor) {
+        String[] titulos = {"Folio", "Titulo", "Autor", "Edición", "Año", "Unidades", "Area", "Num Pags", "Origen"};
+        String[] registros = new String[9];
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+        String seleccion = camposeleccion.getSelectedItem().toString();
+        if (seleccion.equals("selecciona")) {
+            JOptionPane.showMessageDialog(null, "selecciona un parametro de busqueda");
+            buscarpor.setText(null);
+        } else {
+            switch (seleccion) {
+                case "titulo":
+                    try {
+                        String sql = "select * from Libros where titulo like '%" + valor + "%' ";
+                        PreparedStatement ps = con.prepareStatement(sql);
+                        ResultSet rs = ps.executeQuery();
+                        while (rs.next()) {
+                            registros[0] = rs.getString(1);
+                            registros[1] = rs.getString(3);
+                            registros[2] = rs.getString(4);
+                            registros[3] = rs.getString(5);
+                            registros[4] = rs.getString(6);
+                            registros[5] = rs.getString(7);
+                            registros[6] = rs.getString(8);
+                            registros[7] = rs.getString(9);
+                            registros[8] = rs.getString(10);
+                            modelo.addRow(registros);
+                        }
+                        consultaPrincipal.setModel(modelo);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
+                    }
+                    break;
+                case "autor":
+                    try {
+                        String sql = "select * from Libros where autor like '%" + valor + "%' ";
+                        PreparedStatement ps = con.prepareStatement(sql);
+                        ResultSet rs = ps.executeQuery();
+                        while (rs.next()) {
+                            registros[0] = rs.getString(1);
+                            registros[1] = rs.getString(3);
+                            registros[2] = rs.getString(4);
+                            registros[3] = rs.getString(5);
+                            registros[4] = rs.getString(6);
+                            registros[5] = rs.getString(7);
+                            registros[6] = rs.getString(8);
+                            registros[7] = rs.getString(9);
+                            registros[8] = rs.getString(10);
+                            modelo.addRow(registros);
+                        }
+                        consultaPrincipal.setModel(modelo);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
+                    }
+                    break;
+            }
+        }
+    }
+
+    void mostrarTabla() {
         DefaultTableModel modelo2 = new DefaultTableModel();
         modelo2.addColumn("Folio");
-        modelo2.addColumn("Nombre");
-        modelo2.addColumn("Editorial");
+        modelo2.addColumn("Titulo");
         modelo2.addColumn("Autor");
-        modelo2.addColumn("Area");
         modelo2.addColumn("Edicion");
+        modelo2.addColumn("Año");
         modelo2.addColumn("Unidades");
-        modelo2.addColumn("Disponibles");
-        String sql = "SELECT * FROM libros";
-        
-        String datos[] = new String[8];
+        modelo2.addColumn("Área");
+        modelo2.addColumn("Num Paginas");
+        modelo2.addColumn("Origen");
+        String sql = "SELECT * FROM Libros";
+
+        String datos[] = new String[9];
         PreparedStatement pt;
-        try{
+        try {
             pt = con.prepareStatement(sql);
             ResultSet rs = pt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
-                datos[3] = rs.getString(4);
-                datos[4] = rs.getString(5);
-                datos[5] = rs.getString(6);
-                datos[6] = rs.getString(7);
-                datos[7] = rs.getString(8);
+                datos[1] = rs.getString(3);
+                datos[2] = rs.getString(4);
+                datos[3] = rs.getString(5);
+                datos[4] = rs.getString(6);
+                datos[5] = rs.getString(7);
+                datos[6] = rs.getString(8);
+                datos[7] = rs.getString(9);
+                datos[8] = rs.getString(10);
                 modelo2.addRow(datos);
             }
             consultaPrincipal.setModel(modelo2);
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
     }
 
@@ -68,15 +161,17 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        buscarpor = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         consultaPrincipal = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        camposeleccion = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1000, 550));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -84,18 +179,23 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel9.setBackground(new java.awt.Color(0, 204, 204));
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel9.setText("Buscar libros por: nombre, autor, editorial...");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, -1, -1));
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Buscar libros por:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
-        jTextField7.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jTextField7.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 470, 30));
+        buscarpor.setBackground(new java.awt.Color(255, 255, 255));
+        buscarpor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        buscarpor.setForeground(new java.awt.Color(0, 204, 204));
+        buscarpor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                buscarporKeyPressed(evt);
+            }
+        });
+        jPanel1.add(buscarpor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 470, 30));
 
         consultaPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        consultaPrincipal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        consultaPrincipal.setForeground(new java.awt.Color(0, 204, 204));
+        consultaPrincipal.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        consultaPrincipal.setForeground(new java.awt.Color(0, 0, 0));
         consultaPrincipal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -110,59 +210,65 @@ public class Principal extends javax.swing.JFrame {
         consultaPrincipal.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(consultaPrincipal);
 
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 810, 210));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, -1, -1));
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 980, 210));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 204, 204));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Bitacora");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 160, 50));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, 160, 50));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 204, 204));
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Circulo Lector");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 160, 50));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 460, 160, 50));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 204, 204));
+        jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Iniciar sesion");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, 160, 50));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 160, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 530));
+        camposeleccion.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        camposeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "selecciona", "titulo", "autor" }));
+        jPanel1.add(camposeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 240, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 590, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 540));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
+        BitacoraBecario ventana = new BitacoraBecario();
+        ventana.setVisible(true);
+        this.setVisible(false);
+
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         Login log = new Login();
-        log.setVisible(true); 
+        log.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -170,6 +276,10 @@ public class Principal extends javax.swing.JFrame {
         v.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void buscarporKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarporKeyPressed
+        filtrarDatos(buscarpor.getText());
+    }//GEN-LAST:event_buscarporKeyPressed
 
     /**
      * @param args the command line arguments
@@ -207,6 +317,8 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField buscarpor;
+    private javax.swing.JComboBox<String> camposeleccion;
     private javax.swing.JTable consultaPrincipal;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -215,6 +327,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
 }

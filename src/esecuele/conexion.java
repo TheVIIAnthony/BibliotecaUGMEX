@@ -13,9 +13,9 @@ import java.sql.DriverManager;
  * @author Usuario
  */
 public class conexion {    
-    public static final String URL = "jdbc:mysql://127.0.0.1:3306/cid?useLegacyDatetimeCode=false&serverTimezone=UTC";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "1234";
+    public static final String URL = "jdbc:mysql://65.99.225.14:3306/sisugxco_CID?useLegacyDatetimeCode=false&serverTimezone=UTC";
+    public static final String USERNAME = "sisugxco";
+    public static final String PASSWORD = "X7Lr5f39o]+OFb";
     public static Connection con;
     public static Connection getConnection(){
         try{
