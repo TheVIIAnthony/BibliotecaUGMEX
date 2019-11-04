@@ -96,54 +96,34 @@ public class Login extends javax.swing.JFrame {
         Connection con = getConnection();
         String nombreUsuario = campoNombreUsuario.getText();
         String contraseña = campoContraseña.getText();
-        String sql = "SELECT * FROM usuarios WHERE nombreUsuario = ? AND contraseña = ?";
+        String sql = "SELECT * FROM usuarios WHERE nombre = ? AND contraseña = ?";
         ResultSet rs;
-        if(nombreUsuario.equals("")||contraseña.equals("")){
+        if (nombreUsuario.equals("") || contraseña.equals("")) {
             JOptionPane.showMessageDialog(null, "Algunos campos estan vacios");
-        }else{
-            try{
+        } else {
+            try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setString(1, nombreUsuario);
-                ps.setString(2, contraseña); 
+                ps.setString(2, contraseña);
                 rs = ps.executeQuery();
-                if(rs.next()){
-                String sl = rs.getString("nivelPrivilegio");
-//                String nu = rs.getString("nombreUsuario");
-                switch(sl){
-                    case "Administrador":
-                        Menu_admin ventanaAdmin = new Menu_admin();
-                        ventanaAdmin.setVisible(true);
-                        this.setVisible(false);
-                        break;
-                    case "Estándar":
-                        Menu_bec ventanaBecario = new Menu_bec();
-                        ventanaBecario.setVisible(true);
-                        this.setVisible(false);
-                        break;
+                if (rs.next()) {
+                    String sl = rs.getString("nivelPrivilegio");
+                    switch (sl) {
+                        case "Administrador":
+                            Menu_admin ventanaAdmin = new Menu_admin();
+                            ventanaAdmin.setVisible(true);
+                            this.setVisible(false);
+                            break;
+                        case "Estándar":
+                            Menu_bec ventanaBecario = new Menu_bec();
+                            ventanaBecario.setVisible(true);
+                            this.setVisible(false);
+                            break;
+                    }
                 }
-/*
-                
-                UNA ALTERNATIVA QUE NO FUNCIONÓ
-                
-                */
-//                if(NP.equalsIgnoreCase("Administrador") && sl.equalsIgnoreCase("Administrador")){
-//                    Menu_admin ventanaAdmin = new Menu_admin();
-//                    ventanaAdmin.setVisible(true);
-//                    this.setVisible(false);
-//                }
-//                if(NP.equalsIgnoreCase("Becario")&& sl.equalsIgnoreCase("Becario")){
-//                    Menu_bec ventanaBecario = new Menu_bec();
-//                    ventanaBecario.setVisible(true);
-//                    this.setVisible(false);
-//                }
-//                else{
-//                    JOptionPane.showMessageDialog(rootPane, "error al iniciar sesión");
-//                }
-                
-                }
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, e);
-            }   
+            }
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed

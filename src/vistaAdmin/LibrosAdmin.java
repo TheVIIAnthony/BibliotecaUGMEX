@@ -56,7 +56,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
                             registros[8] = rs.getString(10);
                             modelo.addRow(registros);
                         }
-                        campoconsullibros.setModel(modelo);
+                        TablaConsLib.setModel(modelo);
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
                     }
@@ -78,7 +78,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
                             registros[8] = rs.getString(10);
                             modelo.addRow(registros);
                         }
-                        campoconsullibros.setModel(modelo);
+                        TablaConsLib.setModel(modelo);
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
                     }
@@ -117,7 +117,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
                 datos[8] = rs.getString(10);
                 modelo2.addRow(datos);
             }
-            campoconsullibros.setModel(modelo2);
+            TablaConsLib.setModel(modelo2);
         } catch (Exception e) {
 
         }
@@ -138,7 +138,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
         buscarpor = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        campoconsullibros = new javax.swing.JTable();
+        TablaConsLib = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         camposeleccion = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -197,10 +197,10 @@ public class LibrosAdmin extends javax.swing.JFrame {
         jLabel10.setText("Consultar libros");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
 
-        campoconsullibros.setBackground(new java.awt.Color(255, 255, 255));
-        campoconsullibros.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        campoconsullibros.setForeground(new java.awt.Color(0, 0, 0));
-        campoconsullibros.setModel(new javax.swing.table.DefaultTableModel(
+        TablaConsLib.setBackground(new java.awt.Color(255, 255, 255));
+        TablaConsLib.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        TablaConsLib.setForeground(new java.awt.Color(0, 0, 0));
+        TablaConsLib.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -211,8 +211,8 @@ public class LibrosAdmin extends javax.swing.JFrame {
 
             }
         ));
-        campoconsullibros.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(campoconsullibros);
+        TablaConsLib.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(TablaConsLib);
 
         jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 810, 310));
 
@@ -456,7 +456,20 @@ public class LibrosAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_campoISBNActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+        int fila = TablaConsLib.getSelectedRow();
+        String valor = TablaConsLib.getValueAt(fila, 0).toString();
+        if (fila <= 0) {
+            JOptionPane.showMessageDialog(null, "Selecciona un libro");
+        } else {
+            try {
+                PreparedStatement ps = con.prepareStatement("DELETE FROM Libros WHERE nombre ='" + valor + "'");
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Libro eliminado");
+                mostrarTabla();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -496,6 +509,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaConsLib;
     private javax.swing.JTextField buscarpor;
     private javax.swing.JTextField campoArea;
     private javax.swing.JTextField campoAutor;
@@ -505,7 +519,6 @@ public class LibrosAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField campoNombreLibro;
     private javax.swing.JTextField campoNumPag;
     private javax.swing.JTextField campoUnidades;
-    private javax.swing.JTable campoconsullibros;
     private javax.swing.JComboBox<String> camposeleccion;
     private javax.swing.JComboBox<String> comboOrigen;
     private javax.swing.JButton jButton1;

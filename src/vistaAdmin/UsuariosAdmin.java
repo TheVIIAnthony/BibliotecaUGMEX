@@ -6,10 +6,7 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -30,9 +27,9 @@ public class UsuariosAdmin extends javax.swing.JFrame {
     void mostrarTabla() {
         DefaultTableModel modelo2 = new DefaultTableModel();
         modelo2.addColumn("Nombre");
-        modelo2.addColumn("Apellido paterno");
-        modelo2.addColumn("Apellido materno");
-        String sql = "SELECT * FROM Alumnos, docente";
+        modelo2.addColumn("Tipo de Usuario");
+        modelo2.addColumn("Nivel de Privilegio");
+        String sql = "SELECT * FROM usuarios";
         String datos[] = new String[3];
         PreparedStatement pt;
         try {
@@ -73,48 +70,22 @@ public class UsuariosAdmin extends javax.swing.JFrame {
     }
 
     public void filtrarDatos(String valor) {
-        String[] titulos = {"Nombre", "Apellido paterno", "Apellido materno"};
+        String[] titulos = {"Nombre", "Tipo de Usuario", "Nivel de privilegio"};
         String[] registros = new String[3];
         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
-        String seleccion = campobususer.getSelectedItem().toString();
-        if (seleccion.equals("selecciona")) {
-            JOptionPane.showMessageDialog(null, "selecciona un parametro de busqueda");
-            campoDeBusqueda.setText(null);
-        } else {
-            switch (seleccion) {
-                case "Alumnos":
-                    try {
-                        String sql = "select * from Alumnos where nombre like '%" + valor + "%' ";
-                        PreparedStatement ps = con.prepareStatement(sql);
-                        ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                            registros[0] = rs.getString(2);
-                            registros[1] = rs.getString(3);
-                            registros[2] = rs.getString(4);
-                            modelo.addRow(registros);
-                        }
-                        tablaConsulta.setModel(modelo);
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
-                    }
-                    break;
-                case "Docentes":
-                    try {
-                        String sql = "select * from docente where nombre like '%" + valor + "%' ";
-                        PreparedStatement ps = con.prepareStatement(sql);
-                        ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                            registros[0] = rs.getString(2);
-                            registros[1] = rs.getString(3);
-                            registros[2] = rs.getString(4);
-                            modelo.addRow(registros);
-                        }
-                        tablaConsulta.setModel(modelo);
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
-                    }
-                    break;
+        try {
+            String sql = "select * from usuarios where nombre like '%" + valor + "%' ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                registros[0] = rs.getString(2);
+                registros[1] = rs.getString(3);
+                registros[2] = rs.getString(4);
+                modelo.addRow(registros);
             }
+            tablaConsulta.setModel(modelo);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
         }
 
     }
@@ -143,7 +114,6 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         tablaConsulta = new javax.swing.JTable();
         Eliminar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        campobususer = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -233,9 +203,6 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, -1, -1));
 
-        campobususer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "selecciona", "Alumnos", "Docentes" }));
-        jPanel2.add(campobususer, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 170, -1));
-
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 620, -1));
 
@@ -288,7 +255,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         tipoUsuario.setBackground(new java.awt.Color(255, 255, 255));
         tipoUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tipoUsuario.setForeground(new java.awt.Color(0, 0, 0));
-        tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Becario", "Administrativo" }));
+        tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alumno", "Docente" }));
         tipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipoUsuarioActionPerformed(evt);
@@ -346,10 +313,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
     private void tipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tipoUsuarioActionPerformed
-    /* 
-    COMENTAR DESDE AQUI 
-    (RECUERDA ESPECIFICAR ACCIONES)
-     */
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             String nombre = campoNombre.getText();
@@ -362,7 +326,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
             } else {
 
             }
-            String cadena = "INSERT INTO usuarios(nombreUsuario, tipoUsuario, nivelPrivilegio, contraseña)values(?,?,?,?)";
+            String cadena = "INSERT INTO usuarios(nombre, tipoUsuario, nivelPrivilegio, contraseña)values(?,?,?,?)";
             PreparedStatement ps;
             ps = con.prepareStatement(cadena);
             ps.setString(1, nombre);
@@ -376,64 +340,32 @@ public class UsuariosAdmin extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-    /* 
-    COMENTAR HASTA AQUI 
-    (DESPUES BORRAR)
-     */
+
     private void campoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNombreActionPerformed
 
-    /* 
-    COMENTAR HASTA AQUI 
-    (DESPUES BORRAR)
-     */
     private void campoDeBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDeBusquedaKeyPressed
         // realizar busqueda al presionar enter
     }//GEN-LAST:event_campoDeBusquedaKeyPressed
-    /* 
-    COMENTAR DESDE AQUI
-    (RECUERDA ESPECIFICAR ACCIONES)
-     */
+
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         int fila = tablaConsulta.getSelectedRow();
         String valor = tablaConsulta.getValueAt(fila, 0).toString();
-        String TUsuario = campobususer.getSelectedItem().toString();
         if (fila <= 0) {
             JOptionPane.showMessageDialog(null, "Selecciona un usuario");
         } else {
-            if (TUsuario.equals("selecciona")) {
-                JOptionPane.showMessageDialog(null, "selecciona el tipo de usuario \n que quieres borrar");
-            } else {
-                switch (TUsuario) {
-                    case "Alumnos":
-                        try {
-                            PreparedStatement ps = con.prepareStatement("DELETE FROM Alumnos WHERE nombre ='" + valor + "'");
-                            ps.executeUpdate();
-                            JOptionPane.showMessageDialog(null, "Dato eliminado");
-                            mostrarTabla();
-                        } catch (SQLException e) {
-                            JOptionPane.showMessageDialog(null, e);
-                        }
-                        break;
-                    case "Docentes":
-                        try {
-                            PreparedStatement ps = con.prepareStatement("DELETE FROM docente WHERE nombre ='" + valor + "'");
-                            ps.executeUpdate();
-                            JOptionPane.showMessageDialog(null, "Dato eliminado");
-                            mostrarTabla();
-                        } catch (SQLException e) {
-                            JOptionPane.showMessageDialog(null, e);
-                        }
-                        break;
-                }
+            try {
+                PreparedStatement ps = con.prepareStatement("DELETE FROM docente WHERE nombre ='" + valor + "'");
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Dato eliminado");
+                mostrarTabla();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
             }
         }
     }//GEN-LAST:event_EliminarActionPerformed
-    /* 
-    COMENTAR HASTA AQUI 
-    (DESPUES BORRAR)
-     */
+
     private void campoDeBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDeBusquedaActionPerformed
 
     }//GEN-LAST:event_campoDeBusquedaActionPerformed
@@ -490,7 +422,6 @@ public class UsuariosAdmin extends javax.swing.JFrame {
     private javax.swing.JPasswordField campoContra2;
     private javax.swing.JTextField campoDeBusqueda;
     private javax.swing.JTextField campoNombre;
-    private javax.swing.JComboBox<String> campobususer;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

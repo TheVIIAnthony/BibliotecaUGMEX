@@ -34,3 +34,16 @@ Unidades int not null,
 Disponibles int not null,
 primary key(isbn)
 );
+
+create table bitacora (
+idVisita int auto_increment,
+matricula int not null, 
+nombre varchar(40) not null, 
+apellidoP varchar(40) not null, 
+apellidoM varchar(40) not null, 
+carrera varchar(40) not null, 
+razon varchar(40) not null, 
+hora time not null, 
+fecha date not null,
+primary key(idVisita)
+);
