@@ -17,13 +17,9 @@ Para poder acceder al proyecto se deberá contar con algun IDE de JAVA, de prefe
 
 El primer Paso sera descargar el archivo comprimido directamente de esta página.
 
-```
 Posteriormente se debe descomprimir el archivo y agregarlo a la carpeta local de NetBeansProjects
-```
 
 Como ultimo paso directamente desde NetBeans ir a: Archivo > Abrir Proyecto. Y seleccionar la carpeta que fue agregada del comprimido.
-
-```
 
 ## Ejecutando pruebas
 
