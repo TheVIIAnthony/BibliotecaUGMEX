@@ -44,10 +44,10 @@ public class Login extends javax.swing.JFrame {
         contraseña = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        campoContraseña.setBackground(new java.awt.Color(255, 255, 255));
         campoContraseña.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         campoContraseña.setForeground(new java.awt.Color(0, 204, 204));
         campoContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -59,7 +59,6 @@ public class Login extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,17 +66,13 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 130, 40));
-
-        campoNombreUsuario.setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().add(campoNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 150, 30));
 
         nombeUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        nombeUsuario.setForeground(new java.awt.Color(0, 0, 0));
         nombeUsuario.setText("Nombre de Usuario");
         getContentPane().add(nombeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, 20));
 
         contraseña.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        contraseña.setForeground(new java.awt.Color(0, 0, 0));
         contraseña.setText("Contraseña");
         getContentPane().add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
 

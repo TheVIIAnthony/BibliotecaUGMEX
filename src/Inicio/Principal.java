@@ -176,11 +176,9 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel9.setBackground(new java.awt.Color(0, 204, 204));
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Buscar libros por:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
-        buscarpor.setBackground(new java.awt.Color(255, 255, 255));
         buscarpor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         buscarpor.setForeground(new java.awt.Color(0, 204, 204));
         buscarpor.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -190,9 +188,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel1.add(buscarpor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 470, 30));
 
-        consultaPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         consultaPrincipal.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        consultaPrincipal.setForeground(new java.awt.Color(0, 0, 0));
         consultaPrincipal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -211,7 +207,6 @@ public class Principal extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Bitacora");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,7 +217,6 @@ public class Principal extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Circulo Lector");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,7 +227,6 @@ public class Principal extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Iniciar sesion");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
