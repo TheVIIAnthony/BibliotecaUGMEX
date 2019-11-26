@@ -34,7 +34,7 @@ pero se debera crear una base de datos con el mismo script.
 
 ## Contribuir
 
-enviar correo electronico a: antonio_celaya@outlook.com para solicitar ser colaborador
+enviar correo electronico a: antonio_celaya@outlook.com o EddieASRivas@gmail.com para solicitar ser colaborador
 
 ## Autores
 
