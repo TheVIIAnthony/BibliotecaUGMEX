@@ -305,7 +305,7 @@ public class BitacoraBecario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date date = comboFecha.getDate();
         long d = date.getTime();
         java.sql.Date fecha = new java.sql.Date(d);
@@ -322,6 +322,7 @@ public class BitacoraBecario extends javax.swing.JFrame {
         if (campoNombre.getText().isEmpty() || campoApellidoP.getText().isEmpty() || campoApellidoM.getText().isEmpty()
                 || campoCarrera.getText().isEmpty() || comboRazon.equals("selecciona")
                 || campoHora.getText().isEmpty() || comboFecha.getDate().equals("")) {
+            JOptionPane.showMessageDialog(null, "Algunos campos estan vacios");
         } else {
             try {
                 String cadena = "INSERT INTO bitacora(matricula, nombre, apellidoP, apellidoM, carrera, razon, hora, fecha"

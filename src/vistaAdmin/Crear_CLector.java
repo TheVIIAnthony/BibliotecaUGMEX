@@ -6,7 +6,14 @@
 package vistaAdmin;
 
 import Inicio.Principal;
+import static esecuele.conexion.getConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +26,37 @@ public class Crear_CLector extends javax.swing.JFrame {
      */
     public Crear_CLector() {
         initComponents();
+        mostrarTabla();
+    }
+
+    void mostrarTabla() {
+        Connection con = getConnection();
+        DefaultTableModel modelo2 = new DefaultTableModel();
+        modelo2.addColumn("Libro");
+        modelo2.addColumn("Invitado");
+        modelo2.addColumn("Carrera");
+        modelo2.addColumn("Fecha");
+        modelo2.addColumn("Participantes");
+        modelo2.addColumn("Hora");
+        String sql = "SELECT * FROM circuloLector";
+        String datos[] = new String[6];
+        PreparedStatement pt;
+        try {
+            pt = con.prepareStatement(sql);
+            ResultSet rs = pt.executeQuery();
+            while (rs.next()) {
+                datos[0] = rs.getString(2);
+                datos[1] = rs.getString(3);
+                datos[2] = rs.getString(4);
+                datos[3] = rs.getString(5);
+                datos[4] = rs.getString(6);
+                datos[5] = rs.getString(7);
+                modelo2.addRow(datos);
+            }
+            tablaCL.setModel(modelo2);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -31,7 +69,7 @@ public class Crear_CLector extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaCL = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnProgramar = new javax.swing.JButton();
         campoCarrera = new javax.swing.JTextField();
@@ -47,7 +85,7 @@ public class Crear_CLector extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        campoFecha = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -55,7 +93,7 @@ public class Crear_CLector extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCL.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -71,19 +109,19 @@ public class Crear_CLector extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaCL.setColumnSelectionAllowed(true);
+        tablaCL.getTableHeader().setReorderingAllowed(false);
+        tablaCL.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                tablaCLMouseClicked(evt);
             }
         });
-        jTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        tablaCL.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jTable1PropertyChange(evt);
+                tablaCLPropertyChange(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaCL);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -191,7 +229,7 @@ public class Crear_CLector extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(campoCarrera)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                                    .addComponent(campoFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel8)
                                 .addGap(41, 41, 41))))))
@@ -217,7 +255,7 @@ public class Crear_CLector extends javax.swing.JFrame {
                                 .addComponent(campoInvitado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel7))
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,19 +325,52 @@ public class Crear_CLector extends javax.swing.JFrame {
     }//GEN-LAST:event_campoCarreraActionPerformed
 
     private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
+        String libro, invitado, hora, carrera;
+        int participantes;
+        libro = campoLibro.getText();
+        invitado = campoInvitado.getText();
+        hora = campoHora.getSelectedItem().toString();
+        carrera = campoCarrera.getText();
+        Date date = campoFecha.getDate();
+        long d = date.getTime();
+        java.sql.Date fecha = new java.sql.Date(d);
+        participantes = Integer.parseInt(campoParticipantes.getText());
+        Connection con = getConnection();
+        PreparedStatement ps;
+        if (campoLibro.getText().isEmpty() || campoInvitado.getText().isEmpty()
+                || campoCarrera.getText().isEmpty() || campoParticipantes.getText().isEmpty() || campoHora.equals("selecciona")) {
+        } else {
+            try {
+                String sql = "insert into circuloLector(libro, invitado, carrera, fecha, participantes, hora) values(?,?,?,?,?,?)";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, libro);
+                ps.setString(2, invitado);
+                ps.setString(3, carrera);
+                ps.setDate(4, fecha);
+                ps.setInt(5, participantes);
+                ps.setString(6, hora);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "El circulo se ha agendado");
+                campoLibro.setText(null);
+                campoInvitado.setText(null);
+                campoCarrera.setText(null);
+                campoParticipantes.setText(null);
+                mostrarTabla();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
 
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnProgramarActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void tablaCLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCLMouseClicked
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_tablaCLMouseClicked
 
-    private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
+    private void tablaCLPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tablaCLPropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTable1PropertyChange
+    }//GEN-LAST:event_tablaCLPropertyChange
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Principal ventana = new Principal();
@@ -357,13 +428,13 @@ public class Crear_CLector extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProgramar;
     private javax.swing.JTextField campoCarrera;
+    private com.toedter.calendar.JDateChooser campoFecha;
     private javax.swing.JComboBox<String> campoHora;
     private javax.swing.JTextField campoInvitado;
     private javax.swing.JTextField campoLibro;
     private javax.swing.JTextField campoParticipantes;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -374,7 +445,7 @@ public class Crear_CLector extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tablaCL;
     // End of variables declaration//GEN-END:variables
 }
