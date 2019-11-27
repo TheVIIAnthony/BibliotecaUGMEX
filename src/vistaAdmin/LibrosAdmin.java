@@ -411,7 +411,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecciona un libro");
         } else {
             try {
-                PreparedStatement ps = con.prepareStatement("DELETE FROM Libros WHERE nombre ='" + valor + "'");
+                PreparedStatement ps = con.prepareStatement("DELETE FROM Libros WHERE titulo ='" + valor + "'");
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Libro eliminado");
                 mostrarTabla();
