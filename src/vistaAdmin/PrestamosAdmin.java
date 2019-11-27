@@ -178,6 +178,8 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         TablaConsLib = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         libro = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -265,6 +267,12 @@ public class PrestamosAdmin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(753, 173, 70, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/wsdw.png"))); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, -10, 440, 240));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/800x600.png"))); // NOI18N
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 700, 560));
 
         jTabbedPane4.addTab("Consulta", jPanel2);
 
@@ -401,7 +409,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE))
+                .addComponent(jTabbedPane4))
         );
 
         pack();
@@ -608,6 +616,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField folio1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -618,6 +627,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

@@ -168,13 +168,6 @@ public class PrestamosBec extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        buscarpor = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        TablaConsLib = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         campoNumPag = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -196,6 +189,15 @@ public class PrestamosBec extends javax.swing.JFrame {
         campoUnidades = new javax.swing.JTextField();
         campoArea = new javax.swing.JTextField();
         campoFecha = new com.toedter.calendar.JDateChooser();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        buscarpor = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TablaConsLib = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -203,63 +205,6 @@ public class PrestamosBec extends javax.swing.JFrame {
         setResizable(false);
 
         jTabbedPane4.setBackground(new java.awt.Color(102, 102, 102));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setBackground(new java.awt.Color(0, 204, 204));
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Buscar prestamos:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
-
-        buscarpor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        buscarpor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarporActionPerformed(evt);
-            }
-        });
-        buscarpor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                buscarporKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                buscarporKeyTyped(evt);
-            }
-        });
-        jPanel2.add(buscarpor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 470, 30));
-
-        jLabel10.setBackground(new java.awt.Color(0, 204, 204));
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel10.setText("Consultar prestamos");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, 30));
-
-        TablaConsLib.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        TablaConsLib.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        TablaConsLib.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(TablaConsLib);
-
-        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 810, 310));
-
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Volver");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(753, 173, 70, 30));
-
-        jTabbedPane4.addTab("Consulta", jPanel2);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(0, 204, 204));
@@ -346,6 +291,69 @@ public class PrestamosBec extends javax.swing.JFrame {
         jPanel1.add(campoFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 370, 150, 30));
 
         jTabbedPane4.addTab("Registro", jPanel1);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("Buscar prestamos:");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+
+        buscarpor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        buscarpor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarporActionPerformed(evt);
+            }
+        });
+        buscarpor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                buscarporKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscarporKeyTyped(evt);
+            }
+        });
+        jPanel2.add(buscarpor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 470, 30));
+
+        jLabel10.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel10.setText("Consultar prestamos");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, 30));
+
+        TablaConsLib.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        TablaConsLib.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        TablaConsLib.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(TablaConsLib);
+
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 810, 310));
+
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Volver");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(753, 173, 70, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/wsdw.png"))); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 360, 170));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/800x600.png"))); // NOI18N
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 520));
+
+        jTabbedPane4.addTab("Consulta", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -493,6 +501,7 @@ public class PrestamosBec extends javax.swing.JFrame {
     private javax.swing.JTextField campoUnidades;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -501,6 +510,7 @@ public class PrestamosBec extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
