@@ -56,7 +56,12 @@ public class LibrosAdmin extends javax.swing.JFrame {
     }
 
     void mostrarTabla() {
-        DefaultTableModel modelo2 = new DefaultTableModel();
+        DefaultTableModel modelo2 = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int column) {
+       //all cells false
+       return false;
+    }
+        };
         modelo2.addColumn("Folio");
         modelo2.addColumn("Titulo");
         modelo2.addColumn("Autor");

@@ -117,7 +117,12 @@ public class PrestamosAdmin extends javax.swing.JFrame {
     }
 
     void mostrarTabla() {
-        DefaultTableModel modelo2 = new DefaultTableModel();
+        DefaultTableModel modelo2 = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int column) {
+       //all cells false
+       return false;
+    }
+        };
         modelo2.addColumn("Matricula");
         modelo2.addColumn("Nombre");
         modelo2.addColumn("Apellido");

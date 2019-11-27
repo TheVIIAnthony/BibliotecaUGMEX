@@ -128,9 +128,17 @@ public class Bitacora extends javax.swing.JFrame {
             }
         }**/
     }
+    
+    
 
     void mostrarTabla() {
-        DefaultTableModel modelo2 = new DefaultTableModel();
+        
+        DefaultTableModel modelo2 = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int column) {
+       //all cells false
+       return false;
+    }
+        };
         modelo2.addColumn("Matricula");
         modelo2.addColumn("Nombre");
         modelo2.addColumn("Apellido");
@@ -181,6 +189,7 @@ public class Bitacora extends javax.swing.JFrame {
         consultaPrincipal = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -232,6 +241,9 @@ public class Bitacora extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(893, 10, 90, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/800x600.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, 580));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 540));
 
@@ -290,6 +302,7 @@ public class Bitacora extends javax.swing.JFrame {
     private javax.swing.JTextField buscarpor;
     private javax.swing.JTable consultaPrincipal;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

@@ -25,7 +25,12 @@ public class UsuariosAdmin extends javax.swing.JFrame {
     }
 
     void mostrarTabla() {
-        DefaultTableModel modelo2 = new DefaultTableModel();
+        DefaultTableModel modelo2 = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int column) {
+       //all cells false
+       return false;
+    }
+        };
         modelo2.addColumn("Nombre");
         modelo2.addColumn("Tipo de Usuario");
         modelo2.addColumn("Nivel de Privilegio");

@@ -79,7 +79,12 @@ public class Crear_CLector extends javax.swing.JFrame {
 
     void mostrarTabla() {
         Connection con = getConnection();
-        DefaultTableModel modelo2 = new DefaultTableModel();
+        DefaultTableModel modelo2 = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int column) {
+       //all cells false
+       return false;
+    }
+        };
         modelo2.addColumn("Libro");
         modelo2.addColumn("Invitado");
         modelo2.addColumn("Carrera");
