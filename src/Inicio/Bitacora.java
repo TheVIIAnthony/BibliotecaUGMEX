@@ -1,16 +1,21 @@
 package Inicio;
 
+import com.panamahitek.ArduinoException;
+import com.panamahitek.PanamaHitek_Arduino;
 import static esecuele.conexion.getConnection;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import vistaAdmin.Crear_CLector;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import jssc.SerialPortException;
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -26,118 +31,114 @@ public class Bitacora extends javax.swing.JFrame {
 
     public Bitacora() {
         initComponents();
+        try {
+            arduino.arduinoRXTX("COM3", 9600, listener);
+        } catch (ArduinoException ex) {
+
+        }
         mostrarTabla();
         //validarSoloLetras(buscarpor);
     }
 
-    /**public void validarSoloNumeros(JTextField campo) {
-        campo.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!Character.isDigit(c)) {
-                    e.consume();
+    PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
+    SerialPortEventListener listener = new SerialPortEventListener() {
+        @Override
+        public void serialEvent(SerialPortEvent spe) {
+            String codigoRfid = "";
+            try {
+                if (arduino.isMessageAvailable()) {
+                    String a = arduino.printMessage();
+                    String b = "";
+                    b = a.replaceAll("\\s", "");
+                    System.out.println(b);
+                    if (b.equals(codigoRfid)) {
+                        arduino.sendData("o");
+                        System.out.println("esta registrado");
+                    } else {
+                        arduino.sendData("c");
+                        System.out.println("No esta registrado");
+                    }
                 }
+            } catch (SerialPortException ex) {
+                Logger.getLogger(Bitacora.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ArduinoException ex) {
+                Logger.getLogger(Bitacora.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
-    }
+        }
+    };
 
-    public void validarSoloLetras(JTextField campo) {
-        campo.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!Character.isLetter(c)) {
-                    e.consume();
-                }
-            }
-        });
-    }**/
-
+    /**
+     * public void validarSoloNumeros(JTextField campo) {
+     * campo.addKeyListener(new KeyAdapter() { public void keyTyped(KeyEvent e)
+     * { char c = e.getKeyChar(); if (!Character.isDigit(c)) { e.consume(); } }
+     * }); }
+     *
+     * public void validarSoloLetras(JTextField campo) {
+     * campo.addKeyListener(new KeyAdapter() { public void keyTyped(KeyEvent e)
+     * { char c = e.getKeyChar(); if (!Character.isLetter(c)) { e.consume(); } }
+     * }); }*
+     */
     public void filtrarDatos(String valor) {
-        String[] titulos = {"Matricula", "Nombre", "Apellido", "", "Carrera", "Semestre", "Fecha", "Ingreso","Salida"};
+        String[] titulos = {"Matricula", "Nombre", "Apellido", "", "Carrera", "Semestre", "Fecha", "Ingreso", "Salida"};
         String[] registros = new String[8];
         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
         try {
-                        String sql = "select * from bitacora where matricula like '%" + valor + "%' or nombre like '%" + valor + "%' or apellidoP like '%" + valor + "%' or apellidoM like '%" + valor + "%' or carrera like '%" + valor + "%' or semestre like '%" + valor + "%' or fecha like '%" + valor + "%' ";
-                        PreparedStatement ps = con.prepareStatement(sql);
-                        ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                            registros[0] = rs.getString(1);
-                            registros[1] = rs.getString(3);
-                            registros[2] = rs.getString(4);
-                            registros[3] = rs.getString(5);
-                            registros[4] = rs.getString(6);
-                            registros[5] = rs.getString(7);
-                            registros[6] = rs.getString(8);
-                            registros[7] = rs.getString(9);
-                            registros[8] = rs.getString(10);
-                            modelo.addRow(registros);
-                        }
-                        consultaPrincipal.setModel(modelo);
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
-                    }
-        /**if (seleccion.equals("selecciona")) {
-            JOptionPane.showMessageDialog(null, "selecciona un parametro de busqueda");
-            buscarpor.setText(null);
-        } else {
-            switch (seleccion) {
-                case "titulo":
-                    try {
-                        String sql = "select * from Libros where titulo like '%" + valor + "%' ";
-                        PreparedStatement ps = con.prepareStatement(sql);
-                        ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                            registros[0] = rs.getString(1);
-                            registros[1] = rs.getString(3);
-                            registros[2] = rs.getString(4);
-                            registros[3] = rs.getString(5);
-                            registros[4] = rs.getString(6);
-                            registros[5] = rs.getString(7);
-                            registros[6] = rs.getString(8);
-                            registros[7] = rs.getString(9);
-                            registros[8] = rs.getString(10);
-                            modelo.addRow(registros);
-                        }
-                        consultaPrincipal.setModel(modelo);
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
-                    }
-                    break;
-                case "autor":
-                    try {
-                        String sql = "select * from Libros where autor like '%" + valor + "%' ";
-                        PreparedStatement ps = con.prepareStatement(sql);
-                        ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                            registros[0] = rs.getString(1);
-                            registros[1] = rs.getString(3);
-                            registros[2] = rs.getString(4);
-                            registros[3] = rs.getString(5);
-                            registros[4] = rs.getString(6);
-                            registros[5] = rs.getString(7);
-                            registros[6] = rs.getString(8);
-                            registros[7] = rs.getString(9);
-                            registros[8] = rs.getString(10);
-                            modelo.addRow(registros);
-                        }
-                        consultaPrincipal.setModel(modelo);
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
-                    }
-                    break;
+            String sql = "select * from bitacora where matricula like '%" + valor + "%' or nombre like '%" + valor + "%' or apellidoP like '%" + valor + "%' or apellidoM like '%" + valor + "%' or carrera like '%" + valor + "%' or semestre like '%" + valor + "%' or fecha like '%" + valor + "%' ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                registros[0] = rs.getString(1);
+                registros[1] = rs.getString(3);
+                registros[2] = rs.getString(4);
+                registros[3] = rs.getString(5);
+                registros[4] = rs.getString(6);
+                registros[5] = rs.getString(7);
+                registros[6] = rs.getString(8);
+                registros[7] = rs.getString(9);
+                registros[8] = rs.getString(10);
+                modelo.addRow(registros);
+                con.close();
             }
-        }**/
+            consultaPrincipal.setModel(modelo);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
+        }
+        /**
+         * if (seleccion.equals("selecciona")) {
+         * JOptionPane.showMessageDialog(null, "selecciona un parametro de
+         * busqueda"); buscarpor.setText(null); } else { switch (seleccion) {
+         * case "titulo": try { String sql = "select * from Libros where titulo
+         * like '%" + valor + "%' "; PreparedStatement ps =
+         * con.prepareStatement(sql); ResultSet rs = ps.executeQuery(); while
+         * (rs.next()) { registros[0] = rs.getString(1); registros[1] =
+         * rs.getString(3); registros[2] = rs.getString(4); registros[3] =
+         * rs.getString(5); registros[4] = rs.getString(6); registros[5] =
+         * rs.getString(7); registros[6] = rs.getString(8); registros[7] =
+         * rs.getString(9); registros[8] = rs.getString(10);
+         * modelo.addRow(registros); } consultaPrincipal.setModel(modelo); }
+         * catch (SQLException ex) { JOptionPane.showMessageDialog(null, "Error
+         * de Busqueda" + ex.getMessage()); } break; case "autor": try { String
+         * sql = "select * from Libros where autor like '%" + valor + "%' ";
+         * PreparedStatement ps = con.prepareStatement(sql); ResultSet rs =
+         * ps.executeQuery(); while (rs.next()) { registros[0] =
+         * rs.getString(1); registros[1] = rs.getString(3); registros[2] =
+         * rs.getString(4); registros[3] = rs.getString(5); registros[4] =
+         * rs.getString(6); registros[5] = rs.getString(7); registros[6] =
+         * rs.getString(8); registros[7] = rs.getString(9); registros[8] =
+         * rs.getString(10); modelo.addRow(registros); }
+         * consultaPrincipal.setModel(modelo); } catch (SQLException ex) {
+         * JOptionPane.showMessageDialog(null, "Error de Busqueda" +
+         * ex.getMessage()); } break; } }*
+         */
     }
-    
-    
 
     void mostrarTabla() {
-        
-        DefaultTableModel modelo2 = new DefaultTableModel(){
+
+        DefaultTableModel modelo2 = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
-       //all cells false
-       return false;
-    }
+                //all cells false
+                return false;
+            }
         };
         modelo2.addColumn("Matricula");
         modelo2.addColumn("Nombre");
@@ -166,6 +167,7 @@ public class Bitacora extends javax.swing.JFrame {
                 datos[7] = rs.getString(9);
                 datos[8] = rs.getString(10);
                 modelo2.addRow(datos);
+                con.close();
             }
             consultaPrincipal.setModel(modelo2);
         } catch (Exception e) {

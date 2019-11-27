@@ -50,6 +50,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
                 modelo.addRow(registros);
             }
             TablaConsLib.setModel(modelo);
+            con.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
         }
@@ -91,6 +92,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
                 modelo2.addRow(datos);
             }
             TablaConsLib.setModel(modelo2);
+            con.close();
         } catch (Exception e) {
 
         }
@@ -337,7 +339,6 @@ public class LibrosAdmin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String folio, isbn, titulo, autor, edicion, año, unidades, area, numPaginas, origen, sql;
-        Connection con = getConnection();
         PreparedStatement ps;
         folio = campoFolio.getText();
         int ifolio = Integer.parseInt(folio);
@@ -383,6 +384,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
                 campoArea.setText(null);
                 campoUnidades.setText(null);
                 campoNumPag.setText(null);
+                con.close();
             } catch (SQLException sqex) {
                 JOptionPane.showMessageDialog(null, sqex);
             }
@@ -415,6 +417,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Libro eliminado");
                 mostrarTabla();
+                con.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
             }

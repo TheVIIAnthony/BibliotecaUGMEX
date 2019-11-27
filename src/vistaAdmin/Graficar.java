@@ -20,39 +20,21 @@ public class Graficar {
 
     Connection con = getConnection();
 
-    public DefaultTableModel mostrarAlumnos() {
+    public DefaultTableModel mostrarCarreras(String valor) {
         DefaultTableModel miModelo = null;
         try {
-            String titulos[] = {"Nombre", "Apellido P.0", "Apellido M."};
-            String dts[] = new String[3];
+            String titulos[] = {"Nombre","Apellido P.","Apellido M.","Carrera", "Semestre"};
+            String dts[] = new String[5];
             miModelo = new DefaultTableModel(null, titulos);
-            String sql = "select nombre, apellidoP, apellidoM from bitacora";
+            String sql = "select nombre, apellidoP, apellidoM, carrera, semestre from bitacora";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 dts[0] = rs.getString("nombre");
                 dts[1] = rs.getString("apellidoP");
                 dts[2] = rs.getString("apellidoM");
-                miModelo.addRow(dts);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return miModelo;
-    }
-
-    public DefaultTableModel mostrarCarreras() {
-        DefaultTableModel miModelo = null;
-        try {
-            String titulos[] = {"Carrera", "Semestre"};
-            String dts[] = new String[2];
-            miModelo = new DefaultTableModel(null, titulos);
-            String sql = "select carrera, semestre from bitacora";
-            PreparedStatement pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                dts[0] = rs.getString("carrera");
-                dts[1] = rs.getString("semestre");
+                dts[3] = rs.getString("carrera");
+                dts[4] = rs.getString("semestre");
                 miModelo.addRow(dts);
             }
         } catch (SQLException ex) {

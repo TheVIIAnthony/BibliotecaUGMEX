@@ -13,10 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class UsuariosAdmin extends javax.swing.JFrame {
 
-    //COMENTAR ESTO SOBRE ESTA LINEA
     Connection con = getConnection();
-
-    //HASTA AQUI - DESPUES BORRAR ESTA LINEA
     public UsuariosAdmin() {
         initComponents();
         validarSoloLetras(campoDeBusqueda);
@@ -47,6 +44,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
                 modelo2.addRow(datos);
             }
             tablaConsulta.setModel(modelo2);
+            con.close();
         } catch (Exception e) {
 
         }
@@ -89,6 +87,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
                 modelo.addRow(registros);
             }
             tablaConsulta.setModel(modelo);
+            con.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
         }
@@ -185,6 +184,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 840, 330));
 
         Eliminar.setBackground(new java.awt.Color(255, 255, 255));
+        Eliminar.setForeground(new java.awt.Color(0, 0, 0));
         Eliminar.setText("Eliminar");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +194,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jPanel2.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 100, 30));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +206,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 620, -1));
 
-        jTabbedPane1.addTab("Consultar/Eliminar Usuarios", jPanel2);
+        jTabbedPane1.addTab("Consultar/Eliminar Becarios", jPanel2);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -273,7 +274,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/800x600.png"))); // NOI18N
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 840, 400));
 
-        jTabbedPane1.addTab("Alta Usuarios", jPanel1);
+        jTabbedPane1.addTab("Alta Becarios", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -316,6 +317,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Usuario Creado Exitosamente");
             borrarCamposdeAlta();
+            con.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -340,6 +342,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Dato eliminado");
                 mostrarTabla();
+                con.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
             }

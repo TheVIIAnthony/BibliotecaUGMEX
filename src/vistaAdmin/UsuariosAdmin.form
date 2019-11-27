@@ -51,8 +51,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Consultar/Eliminar Usuarios">
-                <Property name="tabTitle" type="java.lang.String" value="Consultar/Eliminar Usuarios"/>
+              <JTabbedPaneConstraints tabName="Consultar/Eliminar Becarios">
+                <Property name="tabTitle" type="java.lang.String" value="Consultar/Eliminar Becarios"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -155,6 +155,9 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
               <Events>
@@ -170,6 +173,9 @@
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Volver"/>
               </Properties>
@@ -204,8 +210,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Alta Usuarios">
-                <Property name="tabTitle" type="java.lang.String" value="Alta Usuarios"/>
+              <JTabbedPaneConstraints tabName="Alta Becarios">
+                <Property name="tabTitle" type="java.lang.String" value="Alta Becarios"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

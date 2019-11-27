@@ -55,6 +55,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
                             modelo.addRow(registros);
                         }
                         TablaConsLib.setModel(modelo);
+                        con.close();
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
                     }
@@ -152,6 +153,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
                 modelo2.addRow(datos);
             }
             TablaConsLib.setModel(modelo2);
+            con.close();
         } catch (Exception e) {
 
         }
@@ -250,6 +252,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 810, 310));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Volver");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,7 +368,6 @@ public class PrestamosAdmin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String folio, isbn, titulo, autor, edicion, año, unidades, area, numPaginas, origen, sql;
-        Connection con = getConnection();
         PreparedStatement ps;
         isbn = campoISBN.getText();
         titulo = campoNombreLibro.getText();
@@ -408,6 +410,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
                 campoArea.setText(null);
                 campoUnidades.setText(null);
                 campoNumPag.setText(null);
+                con.close();
             } catch (SQLException sqex) {
                 JOptionPane.showMessageDialog(null, sqex);
             }

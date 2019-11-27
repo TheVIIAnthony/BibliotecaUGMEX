@@ -50,9 +50,9 @@ public class Registros extends javax.swing.JFrame {
 
         jLabel1.setText("Ventana de Registros");
 
-        jLabel2.setText("Mostrar gráficas por:");
+        jLabel2.setText("Agrupar por:");
 
-        seleccionarGraficas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "selecciona una opcion", "Alumnos", "Carreras" }));
+        seleccionarGraficas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--selecciona una carrera--", "Sistemas", "Psicologia", "Pedagogia", "Turismo", "Administracion", "Diseño Grafico", "Industrial", "Derecho", "Arquitectura" }));
         seleccionarGraficas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seleccionarGraficasActionPerformed(evt);
@@ -102,15 +102,15 @@ public class Registros extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(seleccionarGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(seleccionarGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)
-                                .addGap(31, 31, 31)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton3)))
                         .addGap(54, 54, 54)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 447, Short.MAX_VALUE)
@@ -152,32 +152,62 @@ public class Registros extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DefaultTableModel miModelo;
         Graficar miGrafica = new Graficar();
-        String opcion = (String) seleccionarGraficas.getSelectedItem();
+        String opcion = seleccionarGraficas.getSelectedItem().toString();
         switch (opcion) {
-            case "seleciona una opcion":
-                JOptionPane.showMessageDialog(null, "Selecciona una opcion");
-                break;
-            case "Alumnos":
-                miModelo = miGrafica.mostrarAlumnos();
+            case "--selecciona una carrera--":
+                miModelo = miGrafica.mostrarCarreras(opcion);
                 TablaGraficas.setModel(miModelo);
                 break;
-            case "Carreras":
-                miModelo = miGrafica.mostrarCarreras();
+            case "Sistemas":
+                miModelo = miGrafica.mostrarCarreras(opcion);
                 TablaGraficas.setModel(miModelo);
                 break;
+            case "Psicologia":
+                miModelo = miGrafica.mostrarCarreras(opcion);
+                TablaGraficas.setModel(miModelo);
+                break;
+            case "Pedagogia":
+                miModelo = miGrafica.mostrarCarreras(opcion);
+                TablaGraficas.setModel(miModelo);
+                break;
+            case "Turismo":
+                miModelo = miGrafica.mostrarCarreras(opcion);
+                TablaGraficas.setModel(miModelo);
+                break;
+            case "Administracion":
+                miModelo = miGrafica.mostrarCarreras(opcion);
+                TablaGraficas.setModel(miModelo);
+                break;
+            case "Diseño Grafico":
+                miModelo = miGrafica.mostrarCarreras(opcion);
+                TablaGraficas.setModel(miModelo);
+                break;
+            case "Industrial":
+                miModelo = miGrafica.mostrarCarreras(opcion);
+                TablaGraficas.setModel(miModelo);
+                break;
+            case "Derecho":
+                miModelo = miGrafica.mostrarCarreras(opcion);
+                TablaGraficas.setModel(miModelo);
+                break;
+            case "Arquitectura":
+                miModelo = miGrafica.mostrarCarreras(opcion);
+                TablaGraficas.setModel(miModelo);
+                break;
+
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String opcion = (String) seleccionarGraficas.getSelectedItem();
+        String opcion = seleccionarGraficas.getSelectedItem().toString();
         switch (opcion) {
             case "selecciona una opcion":
                 JOptionPane.showMessageDialog(null, "selecciona una opcion para graficar");
                 break;
-            case "ALumnos":
+            case "Alumnos":
                 DefaultCategoryDataset dtsc = new DefaultCategoryDataset();
                 for (int i = 0; i < TablaGraficas.getRowCount(); i++) {
-                    dtsc.setValue(Integer.parseInt(TablaGraficas.getValueAt(i, 0).toString()), 
+                    dtsc.setValue(Integer.parseInt(TablaGraficas.getValueAt(i, 0).toString()),
                             TablaGraficas.getValueAt(i, 1).toString(), TablaGraficas.getValueAt(i, 2).toString());
                 }
                 JFreeChart ch = ChartFactory.createBarChart3D("Grafica de barras 3D", "Cantidad", "Genero", dtsc, PlotOrientation.HORIZONTAL, true, true, false);
@@ -189,10 +219,10 @@ public class Registros extends javax.swing.JFrame {
                 DefaultCategoryDataset dtsc2 = new DefaultCategoryDataset();
 
                 for (int i = 0; i < TablaGraficas.getRowCount(); i++) {
-                    dtsc2.setValue(Integer.parseInt(TablaGraficas.getValueAt(i, 0).toString()), TablaGraficas.getValueAt(i, 1).toString(), 
+                    dtsc2.setValue(Integer.parseInt(TablaGraficas.getValueAt(i, 0).toString()), TablaGraficas.getValueAt(i, 1).toString(),
                             TablaGraficas.getValueAt(i, 2).toString());
                 }
-                JFreeChart ch2 = ChartFactory.createBarChart3D("Grafica de barras 3D", "Cantidad", "Genero", dtsc2, 
+                JFreeChart ch2 = ChartFactory.createBarChart3D("Grafica de barras 3D", "Cantidad", "Genero", dtsc2,
                         PlotOrientation.HORIZONTAL, true, true, false);
                 ChartPanel cp2 = new ChartPanel(ch2);
                 add(cp2);

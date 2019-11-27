@@ -9,7 +9,6 @@ import static esecuele.conexion.getConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import vistaAdmin.Menu_admin;
@@ -20,6 +19,8 @@ import vistaBecario.Menu_bec;
  * @author Eddie
  */
 public class Login extends javax.swing.JFrame {
+
+    Connection con = getConnection();
 
     /**
      * Creates new form Login
@@ -90,7 +91,6 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_campoContraseñaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Connection con = getConnection();
         String nombreUsuario = campoNombreUsuario.getText();
         String contraseña = campoContraseña.getText();
         String sql = "SELECT * FROM usuarios WHERE nombre = ? AND contraseña = ?";
@@ -117,6 +117,7 @@ public class Login extends javax.swing.JFrame {
                             this.setVisible(false);
                             break;
                     }
+                    con.close();
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, e);
