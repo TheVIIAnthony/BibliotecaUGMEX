@@ -5,7 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.Date;
+import static javafx.beans.binding.Bindings.or;
+import static javax.management.Query.or;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +34,31 @@ public class PrestamosAdmin extends javax.swing.JFrame {
     }
 
     public void filtrarDatos(String valor) {
-        String[] titulos = {"Folio", "Titulo", "Autor", "Edición", "Año", "Unidades", "Area", "Num Pags", "Origen"};
+        String[] titulos = {"Matricula", "Nombre", "Apellido", "", "Carrera", "Semestre", "Folio", "Libro", "Fecha de prestamo"};
+        String[] registros = new String[9];
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+        
+        try {
+                        String sql = "select * from prestamos where matricula like '%" + valor + "%' or nombalum like '%" + valor + "%' or appat like '%" + valor + "%' or apmat like '%" + valor + "%' or carrera like '%" + valor + "%' or semestre like '%" + valor + "%' or foliolibro like '%" + valor + "%' or nomlibro like '%" + valor + "%' or fechaemi like '%" + valor + "%'";
+                        PreparedStatement ps = con.prepareStatement(sql);
+                        ResultSet rs = ps.executeQuery();
+                        while (rs.next()) {
+                            registros[0] = rs.getString(2);
+                            registros[1] = rs.getString(3);
+                            registros[2] = rs.getString(4);
+                            registros[3] = rs.getString(5);
+                            registros[4] = rs.getString(6);
+                            registros[5] = rs.getString(7);
+                            registros[6] = rs.getString(8);
+                            registros[7] = rs.getString(9);
+                            registros[8] = rs.getString(10);
+                            modelo.addRow(registros);
+                        }
+                        TablaConsLib.setModel(modelo);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
+                    }
+        /**String[] titulos = {"Matricula", "Titulo", "Autor", "Edición", "Año", "Unidades", "Area", "Num Pags", "Origen"};
         String[] registros = new String[9];
         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
         String seleccion = camposeleccion.getSelectedItem().toString();
@@ -39,10 +66,11 @@ public class PrestamosAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "selecciona un parametro de busqueda");
             buscarpor.setText(null);
         } else {
+            
             switch (seleccion) {
-                case "titulo":
+                case "Matricula":
                     try {
-                        String sql = "select * from Libros where titulo like '%" + valor + "%' ";
+                        String sql = "select * from prestamos where titulo like '%" + valor + "%' ";
                         PreparedStatement ps = con.prepareStatement(sql);
                         ResultSet rs = ps.executeQuery();
                         while (rs.next()) {
@@ -85,21 +113,21 @@ public class PrestamosAdmin extends javax.swing.JFrame {
                     }
                     break;
             }
-        }
+        }**/
     }
 
     void mostrarTabla() {
         DefaultTableModel modelo2 = new DefaultTableModel();
+        modelo2.addColumn("Matricula");
+        modelo2.addColumn("Nombre");
+        modelo2.addColumn("Apellido");
+        modelo2.addColumn("Apellido");
+        modelo2.addColumn("Carrera");
+        modelo2.addColumn("Semestre");
         modelo2.addColumn("Folio");
-        modelo2.addColumn("Titulo");
-        modelo2.addColumn("Autor");
-        modelo2.addColumn("Edicion");
-        modelo2.addColumn("Año");
-        modelo2.addColumn("Unidades");
-        modelo2.addColumn("Área");
-        modelo2.addColumn("Num Paginas");
-        modelo2.addColumn("Origen");
-        String sql = "SELECT * FROM Libros";
+        modelo2.addColumn("Libro");
+        modelo2.addColumn("Fecha");
+        String sql = "SELECT * FROM prestamos";
 
         String datos[] = new String[9];
         PreparedStatement pt;
@@ -107,7 +135,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
             pt = con.prepareStatement(sql);
             ResultSet rs = pt.executeQuery();
             while (rs.next()) {
-                datos[0] = rs.getString(1);
+                datos[0] = rs.getString(2);
                 datos[1] = rs.getString(3);
                 datos[2] = rs.getString(4);
                 datos[3] = rs.getString(5);
@@ -141,7 +169,6 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         TablaConsLib = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
-        camposeleccion = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         campoNumPag = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -175,13 +202,21 @@ public class PrestamosAdmin extends javax.swing.JFrame {
 
         jLabel9.setBackground(new java.awt.Color(0, 204, 204));
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Buscar prestamos por:");
+        jLabel9.setText("Buscar prestamos:");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
         buscarpor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        buscarpor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarporActionPerformed(evt);
+            }
+        });
         buscarpor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 buscarporKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscarporKeyTyped(evt);
             }
         });
         jPanel2.add(buscarpor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 470, 30));
@@ -216,14 +251,6 @@ public class PrestamosAdmin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 180, -1, -1));
-
-        camposeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona", "Matricula", "Nombre", "Fecha", "Folio del libro", "Nombre del libro" }));
-        camposeleccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                camposeleccionActionPerformed(evt);
-            }
-        });
-        jPanel2.add(camposeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 130, -1));
 
         jTabbedPane4.addTab("Consultar libros", jPanel2);
 
@@ -346,26 +373,26 @@ public class PrestamosAdmin extends javax.swing.JFrame {
 
         unidades = campoUnidades.getText();
         numPaginas = campoNumPag.getText();
-        int Unidades = Integer.parseInt(unidades), numPags = Integer.parseInt(numPaginas);
+
         if (campoISBN.getText().isEmpty() || campoNombreLibro.getText().isEmpty()
                 || campoAutor.getText().isEmpty() || campoEdicion.getText().isEmpty() || campoAño.getText().isEmpty()
                 || campoArea.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Algunos campos están vacíos");
         } else {
             try {
-                sql = "INSERT INTO Libros (isbn, titulo, autor, edicion, anio, unidades, area, num_paginas, origen) values(?,?,?,?,?,?,?,?,?)";
+                sql = "INSERT INTO prestamos( matricula, nombalum, appat, apmat, carrera, semestre, foliolibro, nomlibro, fechaemi)" + "values(?,?,?,?,?,?,?,?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, isbn);
                 ps.setString(2, titulo);
                 ps.setString(3, autor);
                 ps.setString(4, edicion);
                 ps.setString(5, año);
-                ps.setInt(6, Unidades);
+                ps.setString(6, unidades);
                 ps.setString(7, area);
-                ps.setInt(8, numPags);
-                ps.setString(9, fecha);
+                ps.setString(8, numPaginas);
+                ps.setDate(9, fecha);
                 ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Nuevo libro subido correctamente");
+                JOptionPane.showMessageDialog(null, "Nuevo registro subido correctamente");
                 mostrarTabla();
                 campoISBN.setText(null);
                 campoNombreLibro.setText(null);
@@ -391,13 +418,17 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         filtrarDatos(buscarpor.getText());
     }//GEN-LAST:event_buscarporKeyPressed
 
-    private void camposeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camposeleccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_camposeleccionActionPerformed
-
     private void campoISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoISBNActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoISBNActionPerformed
+
+    private void buscarporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarporActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarporActionPerformed
+
+    private void buscarporKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarporKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarporKeyTyped
 
     /**
      * @param args the command line arguments
@@ -449,7 +480,6 @@ public class PrestamosAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField campoNombreLibro;
     private javax.swing.JTextField campoNumPag;
     private javax.swing.JTextField campoUnidades;
-    private javax.swing.JComboBox<String> camposeleccion;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
