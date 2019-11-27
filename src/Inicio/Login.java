@@ -71,10 +71,12 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(campoNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 150, 30));
 
         nombeUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        nombeUsuario.setForeground(new java.awt.Color(0, 0, 0));
         nombeUsuario.setText("Nombre de Usuario");
         getContentPane().add(nombeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, 20));
 
         contraseña.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        contraseña.setForeground(new java.awt.Color(0, 0, 0));
         contraseña.setText("Contraseña");
         getContentPane().add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
 

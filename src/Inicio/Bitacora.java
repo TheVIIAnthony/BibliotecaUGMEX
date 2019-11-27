@@ -201,6 +201,7 @@ public class Bitacora extends javax.swing.JFrame {
 
         jLabel9.setBackground(new java.awt.Color(0, 204, 204));
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Filtro de entrada:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
@@ -232,6 +233,7 @@ public class Bitacora extends javax.swing.JFrame {
 
         jLabel10.setBackground(new java.awt.Color(0, 204, 204));
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Bitácora");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, -1));
 
