@@ -10,13 +10,7 @@ import java.util.Date;
 import static javafx.beans.binding.Bindings.or;
 import static javax.management.Query.or;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import java.lang.String;
-import java.sql.Statement;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,10 +22,6 @@ import java.util.logging.Logger;
  * @author Usuario
  */
 public class PrestamosAdmin extends javax.swing.JFrame {
-    
-    
-    
-    
 
     Connection con = getConnection();
 
@@ -42,7 +32,6 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         initComponents();
         mostrarTabla();
     }
-    
 
     public void filtrarDatos(String valor) {
         String[] titulos = {"Matricula", "Nombre", "Apellido", "", "Carrera", "Semestre", "Folio", "Libro", "Fecha de prestamo"};
@@ -126,9 +115,6 @@ public class PrestamosAdmin extends javax.swing.JFrame {
             }
         }**/
     }
-    
-    
-    
 
     void mostrarTabla() {
         DefaultTableModel modelo2 = new DefaultTableModel(){
@@ -145,14 +131,10 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         modelo2.addColumn("Semestre");
         modelo2.addColumn("Folio");
         modelo2.addColumn("Libro");
-        modelo2.addColumn("Autor");
-        modelo2.addColumn("Area");
-        modelo2.addColumn("Prestado");
-        modelo2.addColumn("Entregar");
-        modelo2.addColumn("Deuda");
+        modelo2.addColumn("Fecha");
         String sql = "SELECT * FROM prestamos";
 
-        String datos[] = new String[11];
+        String datos[] = new String[9];
         PreparedStatement pt;
         try {
             pt = con.prepareStatement(sql);
@@ -167,10 +149,6 @@ public class PrestamosAdmin extends javax.swing.JFrame {
                 datos[6] = rs.getString(8);
                 datos[7] = rs.getString(9);
                 datos[8] = rs.getString(10);
-                datos[9] = rs.getString(11);
-                datos[10] = rs.getString(12);
-                datos[11] = rs.getString(13);
-                datos[12] = rs.getString(14);
                 modelo2.addRow(datos);
             }
             TablaConsLib.setModel(modelo2);
@@ -197,7 +175,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         TablaConsLib = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        libro = new javax.swing.JTextField();
+        campoNumPag = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -207,20 +185,16 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        matricula = new javax.swing.JTextField();
+        campoISBN = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        nombalumn = new javax.swing.JTextField();
-        app = new javax.swing.JTextField();
-        apm = new javax.swing.JTextField();
-        carrera = new javax.swing.JTextField();
-        semestre = new javax.swing.JTextField();
-        Folio = new javax.swing.JTextField();
+        campoNombreLibro = new javax.swing.JTextField();
+        campoAutor = new javax.swing.JTextField();
+        campoEdicion = new javax.swing.JTextField();
+        campoAño = new javax.swing.JTextField();
+        campoUnidades = new javax.swing.JTextField();
+        campoArea = new javax.swing.JTextField();
         campoFecha = new com.toedter.calendar.JDateChooser();
-        autor = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        area = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -290,9 +264,8 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(0, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        libro.setEditable(false);
-        libro.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(libro, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 150, -1));
+        campoNumPag.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jPanel1.add(campoNumPag, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 320, 150, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Nombre del alumno");
@@ -318,11 +291,11 @@ public class PrestamosAdmin extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 490, 120, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, 120, 40));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel19.setText("Carrera");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setText("Matricula");
@@ -330,77 +303,46 @@ public class PrestamosAdmin extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel20.setText("Semestre");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel22.setText("Fecha de emisión");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, -1, -1));
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, -1, -1));
 
-        matricula.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        matricula.addActionListener(new java.awt.event.ActionListener() {
+        campoISBN.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        campoISBN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                matriculaActionPerformed(evt);
+                campoISBNActionPerformed(evt);
             }
         });
-        matricula.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                matriculaKeyPressed(evt);
-            }
-        });
-        jPanel1.add(matricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 150, -1));
+        jPanel1.add(campoISBN, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 150, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Nombre del libro");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Folio del libro");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, -1, -1));
 
-        nombalumn.setEditable(false);
-        nombalumn.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(nombalumn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 150, -1));
+        campoNombreLibro.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jPanel1.add(campoNombreLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 150, -1));
 
-        app.setEditable(false);
-        app.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(app, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 150, -1));
+        campoAutor.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jPanel1.add(campoAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 150, -1));
 
-        apm.setEditable(false);
-        apm.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(apm, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 150, -1));
+        campoEdicion.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jPanel1.add(campoEdicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 150, -1));
 
-        carrera.setEditable(false);
-        carrera.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(carrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 150, -1));
+        campoAño.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jPanel1.add(campoAño, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, 150, -1));
 
-        semestre.setEditable(false);
-        semestre.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(semestre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 420, 150, -1));
+        campoUnidades.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jPanel1.add(campoUnidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, 150, -1));
 
-        Folio.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        Folio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FolioActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Folio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, 150, -1));
-        jPanel1.add(campoFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 370, 150, 30));
-
-        autor.setEditable(false);
-        autor.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(autor, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, 150, -1));
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel11.setText("Autor");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, -1, -1));
-
-        area.setEditable(false);
-        area.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(area, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 300, 150, -1));
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel12.setText("Area");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, -1));
+        campoArea.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jPanel1.add(campoArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, 150, -1));
+        jPanel1.add(campoFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 370, 150, 30));
 
         jTabbedPane4.addTab("Registros", jPanel1);
 
@@ -421,30 +363,26 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String folio, isbn, titulo, autor1, edicion, año, unidades, area1, numPaginas, origen, sql,autor2,area2;
+        String folio, isbn, titulo, autor, edicion, año, unidades, area, numPaginas, origen, sql;
         Connection con = getConnection();
         PreparedStatement ps;
-        isbn = matricula.getText();
-        titulo = nombalumn.getText();
-        autor1 = app.getText();
-        edicion = apm.getText();
-        año = carrera.getText();
-        area1 = Folio.getText();
+        isbn = campoISBN.getText();
+        titulo = campoNombreLibro.getText();
+        autor = campoAutor.getText();
+        edicion = campoEdicion.getText();
+        año = campoAño.getText();
+        area = campoArea.getText();
         Date date = campoFecha.getDate();
-        long d = date.getTime();;
+        long d = date.getTime();
         java.sql.Date fecha = new java.sql.Date(d);
-        autor2= autor.getText();
-        area2= area.getText();
-        
 
-        unidades = semestre.getText();
-        numPaginas = libro.getText();
+        unidades = campoUnidades.getText();
+        numPaginas = campoNumPag.getText();
 
-        if (matricula.getText().isEmpty() || nombalumn.getText().isEmpty()
-                || app.getText().isEmpty() || apm.getText().isEmpty() || carrera.getText().isEmpty()
-                || Folio.getText().isEmpty()) {
+        if (campoISBN.getText().isEmpty() || campoNombreLibro.getText().isEmpty()
+                || campoAutor.getText().isEmpty() || campoEdicion.getText().isEmpty() || campoAño.getText().isEmpty()
+                || campoArea.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Algunos campos están vacíos");
         } else {
             try {
@@ -452,28 +390,24 @@ public class PrestamosAdmin extends javax.swing.JFrame {
                 ps = con.prepareStatement(sql);
                 ps.setString(1, isbn);
                 ps.setString(2, titulo);
-                ps.setString(3, autor1);
+                ps.setString(3, autor);
                 ps.setString(4, edicion);
                 ps.setString(5, año);
                 ps.setString(6, unidades);
-                ps.setString(7, area1);
+                ps.setString(7, area);
                 ps.setString(8, numPaginas);
-                ps.setString(9, autor2 );
-                ps.setString(10, area2);
-                ps.setDate(11, fecha);
+                ps.setDate(9, fecha);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Nuevo registro subido correctamente");
                 mostrarTabla();
-                matricula.setText(null);
-                nombalumn.setText(null);
-                app.setText(null);
-                apm.setText(null);
-                carrera.setText(null);
-                Folio.setText(null);
-                semestre.setText(null);
-                libro.setText(null);
-                area.setText(null);
-                autor.setText(null);
+                campoISBN.setText(null);
+                campoNombreLibro.setText(null);
+                campoAutor.setText(null);
+                campoEdicion.setText(null);
+                campoAño.setText(null);
+                campoArea.setText(null);
+                campoUnidades.setText(null);
+                campoNumPag.setText(null);
             } catch (SQLException sqex) {
                 JOptionPane.showMessageDialog(null, sqex);
             }
@@ -490,43 +424,9 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         filtrarDatos(buscarpor.getText());
     }//GEN-LAST:event_buscarporKeyPressed
 
-    private void matriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matriculaActionPerformed
+    private void campoISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoISBNActionPerformed
         // TODO add your handling code here:
-        String sql = "SELECT * FROM Alumnos";
-
-        String matricula1,nombre,apma,appa,sem,carr;
-        int dato;
-        PreparedStatement pt;
-        try {
-            pt = con.prepareStatement(sql);
-            ResultSet rs = pt.executeQuery();
-            while (rs.next()) {
-                matricula1= matricula.getText();
-                dato = rs.getInt(1);
-                String datos= String.valueOf(dato);
-                nombre = rs.getString(2);
-                 appa= rs.getString(3);
-                apma = rs.getString(4);
-                sem = rs.getString(5);
-                carr = rs.getString(6);
-                if (matricula!=null){
-                    if(matricula1.equals(datos)){
-                    nombalumn.setText(nombre);
-                    app.setText(appa);
-                    apm.setText(apma);
-                    semestre.setText(sem);
-                    carrera.setText(carr);
-                    }
-             }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Checa tu conexion totol");
-
-        }
-        
-        
-        
-    }//GEN-LAST:event_matriculaActionPerformed
+    }//GEN-LAST:event_campoISBNActionPerformed
 
     private void buscarporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarporActionPerformed
         // TODO add your handling code here:
@@ -535,75 +435,6 @@ public class PrestamosAdmin extends javax.swing.JFrame {
     private void buscarporKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarporKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_buscarporKeyTyped
-
-    private void matriculaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_matriculaKeyPressed
-        // TODO add your handling code here:
-        
-        
-        
-        /**try{
-        String nombre,apellido,apellidom,carrera1,semestre1, sql;
-        int matricula1;
-        String matriculao= matricula.getText();
-        int matriculaof = Integer.parseInt(matriculao);
-        Connection con = getConnection();
-        sql="SELECT * FROM Alumnos WHERE Matricula= ?";
-        Statement ps = null;
-        ps = con.createStatement();
-        ResultSet rs= ps.executeQuery(sql);
-        
-        
-        
-        while (rs.next()==true){
-            matricula1 =rs.getInt(1);
-            nombre = rs.getString(2);
-            
-            if(matriculao!=null){
-                if(matriculaof==matricula1){
-                nombalumn=setText(nombre);
-                }
-            }else{
-                
-            }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PrestamosAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }**/
-           
-       
-    }//GEN-LAST:event_matriculaKeyPressed
-
-    private void FolioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FolioActionPerformed
-        // TODO add your handling code here:
-        String sql = "SELECT * FROM Libros";
-
-        PreparedStatement pt;
-        String Folio1,Libro1,Autor,Area;
-        int datos;
-        try {
-            pt = con.prepareStatement(sql);
-            ResultSet rs = pt.executeQuery();
-            while (rs.next()) {
-                Folio1= Folio.getText();
-                datos = rs.getInt(1);
-                String datos1= String.valueOf(datos);
-                Libro1 = rs.getString(3);
-                 Autor= rs.getString(4);
-                Area = rs.getString(8);
-                
-                if (Folio!=null){
-                    if(Folio1.equals(datos1)){
-                    libro.setText(Libro1);
-                    autor.setText(Autor);
-                    area.setText(Area);
-                    }
-             }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Checa tu conexion totol");
-
-        }
-    }//GEN-LAST:event_FolioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -644,20 +475,20 @@ public class PrestamosAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Folio;
     private javax.swing.JTable TablaConsLib;
-    private javax.swing.JTextField apm;
-    private javax.swing.JTextField app;
-    private javax.swing.JTextField area;
-    private javax.swing.JTextField autor;
     private javax.swing.JTextField buscarpor;
+    private javax.swing.JTextField campoArea;
+    private javax.swing.JTextField campoAutor;
+    private javax.swing.JTextField campoAño;
+    private javax.swing.JTextField campoEdicion;
     private com.toedter.calendar.JDateChooser campoFecha;
-    private javax.swing.JTextField carrera;
+    private javax.swing.JTextField campoISBN;
+    private javax.swing.JTextField campoNombreLibro;
+    private javax.swing.JTextField campoNumPag;
+    private javax.swing.JTextField campoUnidades;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -673,13 +504,5 @@ public class PrestamosAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane4;
-    private javax.swing.JTextField libro;
-    private javax.swing.JTextField matricula;
-    private javax.swing.JTextField nombalumn;
-    private javax.swing.JTextField semestre;
     // End of variables declaration//GEN-END:variables
-
-    private JTextField setText(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
