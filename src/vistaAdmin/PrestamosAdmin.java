@@ -193,6 +193,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setUndecorated(true);
         setResizable(false);
 
         jTabbedPane4.setBackground(new java.awt.Color(102, 102, 102));
@@ -250,9 +251,9 @@ public class PrestamosAdmin extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 180, -1, -1));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(753, 173, 70, 30));
 
-        jTabbedPane4.addTab("Consultar libros", jPanel2);
+        jTabbedPane4.addTab("Consulta", jPanel2);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(0, 204, 204));
@@ -338,7 +339,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
         jPanel1.add(campoArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, 150, -1));
         jPanel1.add(campoFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 370, 150, 30));
 
-        jTabbedPane4.addTab("Alta libros", jPanel1);
+        jTabbedPane4.addTab("Registros", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -411,7 +412,7 @@ public class PrestamosAdmin extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Menu_admin ventana = new Menu_admin();
         ventana.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void buscarporKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarporKeyPressed

@@ -6,6 +6,7 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
     </Property>
+    <Property name="undecorated" type="boolean" value="true"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -57,8 +58,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Consultar libros">
-                <Property name="tabTitle" type="java.lang.String" value="Consultar libros"/>
+              <JTabbedPaneConstraints tabName="Consulta">
+                <Property name="tabTitle" type="java.lang.String" value="Consulta"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -199,7 +200,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="760" y="180" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="753" y="173" width="70" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -216,8 +217,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Alta libros">
-                <Property name="tabTitle" type="java.lang.String" value="Alta libros"/>
+              <JTabbedPaneConstraints tabName="Registros">
+                <Property name="tabTitle" type="java.lang.String" value="Registros"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

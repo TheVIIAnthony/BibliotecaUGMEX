@@ -132,6 +132,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(875, 500));
 
@@ -194,7 +195,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(783, 20, 70, 30));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 620, -1));
@@ -351,7 +352,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Menu_admin ventana = new Menu_admin();
         ventana.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

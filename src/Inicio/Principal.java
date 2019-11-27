@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import vistaAdmin.Crear_CLector;
-import vistaBecario.BitacoraBecario;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -28,10 +27,10 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         mostrarTabla();
-        validarSoloLetras(buscarpor);
+        //validarSoloLetras(buscarpor);
     }
 
-    public void validarSoloNumeros(JTextField campo) {
+    /**public void validarSoloNumeros(JTextField campo) {
         campo.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -51,14 +50,33 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         });
-    }
+    }**/
 
     public void filtrarDatos(String valor) {
         String[] titulos = {"Folio", "Titulo", "Autor", "Edición", "Año", "Unidades", "Area", "Num Pags", "Origen"};
         String[] registros = new String[9];
         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
-        String seleccion = camposeleccion.getSelectedItem().toString();
-        if (seleccion.equals("selecciona")) {
+        try {
+                        String sql = "select * from Libros where folio like '%" + valor + "%' or isbn like '%" + valor + "%' or titulo like '%" + valor + "%' or autor like '%" + valor + "%' or edicion like '%" + valor + "%' or anio like '%" + valor + "%' or unidades like '%" + valor + "%' or area like '%" + valor + "%'  ";
+                        PreparedStatement ps = con.prepareStatement(sql);
+                        ResultSet rs = ps.executeQuery();
+                        while (rs.next()) {
+                            registros[0] = rs.getString(1);
+                            registros[1] = rs.getString(3);
+                            registros[2] = rs.getString(4);
+                            registros[3] = rs.getString(5);
+                            registros[4] = rs.getString(6);
+                            registros[5] = rs.getString(7);
+                            registros[6] = rs.getString(8);
+                            registros[7] = rs.getString(9);
+                            registros[8] = rs.getString(10);
+                            modelo.addRow(registros);
+                        }
+                        consultaPrincipal.setModel(modelo);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
+                    }
+        /**if (seleccion.equals("selecciona")) {
             JOptionPane.showMessageDialog(null, "selecciona un parametro de busqueda");
             buscarpor.setText(null);
         } else {
@@ -108,7 +126,7 @@ public class Principal extends javax.swing.JFrame {
                     }
                     break;
             }
-        }
+        }**/
     }
 
     void mostrarTabla() {
@@ -164,10 +182,9 @@ public class Principal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        camposeleccion = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1000, 550));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -235,13 +252,6 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 160, 50));
 
-        camposeleccion.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        camposeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "selecciona", "titulo", "autor" }));
-        jPanel1.add(camposeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 240, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 590, -1));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 540));
 
         pack();
@@ -249,7 +259,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        BitacoraBecario ventana = new BitacoraBecario();
+        Bitacora ventana = new Bitacora();
         ventana.setVisible(true);
         this.setVisible(false);
 
@@ -308,12 +318,10 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField buscarpor;
-    private javax.swing.JComboBox<String> camposeleccion;
     private javax.swing.JTable consultaPrincipal;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane4;

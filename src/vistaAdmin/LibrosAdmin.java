@@ -108,7 +108,6 @@ public class LibrosAdmin extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         TablaConsLib = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         campoNumPag = new javax.swing.JTextField();
@@ -138,6 +137,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setUndecorated(true);
         setResizable(false);
 
         jTabbedPane4.setBackground(new java.awt.Color(102, 102, 102));
@@ -188,9 +188,6 @@ public class LibrosAdmin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 180, -1, -1));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoGrande.png"))); // NOI18N
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -390,7 +387,7 @@ public class LibrosAdmin extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Menu_admin ventana = new Menu_admin();
         ventana.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void buscarporKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarporKeyPressed
@@ -483,7 +480,6 @@ public class LibrosAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
