@@ -351,6 +351,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         int fila = tablaConsulta.getSelectedRow();
+        System.out.println(fila);
         String valor = tablaConsulta.getValueAt(fila, 0).toString();
         if (fila <= 0) {
             JOptionPane.showMessageDialog(null, "Selecciona un usuario");
