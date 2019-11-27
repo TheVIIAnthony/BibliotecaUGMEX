@@ -54,6 +54,29 @@ public class Crear_CLector extends javax.swing.JFrame {
         }
     }
 
+    public void filtrarDatosCL(String valor) {
+        String[] titulos = {"Libro", "Invitado", "Carrera", "Fecha", "Participantes", "Hora"};
+        String[] registros = new String[6];
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+        try {
+            String sql = "select * from circuloLector where Libro like '%" + valor + "%' or Invitado like '%" + valor + "%' ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                registros[0] = rs.getString(1);
+                registros[1] = rs.getString(2);
+                registros[1] = rs.getString(3);
+                registros[2] = rs.getString(4);
+                registros[3] = rs.getString(5);
+                registros[4] = rs.getString(6);
+                modelo.addRow(registros);
+            }
+            tablaCL.setModel(modelo);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de Busqueda" + ex.getMessage());
+        }
+    }
+
     void mostrarTabla() {
         Connection con = getConnection();
         DefaultTableModel modelo2 = new DefaultTableModel();
@@ -115,7 +138,7 @@ public class Crear_CLector extends javax.swing.JFrame {
         tablaconslib = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        buscarCL = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCL = new javax.swing.JTable();
 
@@ -316,9 +339,9 @@ public class Crear_CLector extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel1.setText("Buscar circulos programados:");
 
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        buscarCL.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                buscarCLKeyPressed(evt);
             }
         });
 
@@ -357,19 +380,15 @@ public class Crear_CLector extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 835, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 835, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buscarCL, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,7 +396,7 @@ public class Crear_CLector extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buscarCL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                 .addContainerGap())
@@ -417,7 +436,8 @@ public class Crear_CLector extends javax.swing.JFrame {
     private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
         String libro, invitado, hora, carrera;
         int participantes;
-        libro = campoLibro.getText();
+        int fila = tablaconslib.getSelectedRow();
+        libro = tablaconslib.getValueAt(fila, 1).toString();
         invitado = campoInvitado.getText();
         hora = campoHora.getSelectedItem().toString();
         carrera = campoCarrera.getText();
@@ -427,8 +447,9 @@ public class Crear_CLector extends javax.swing.JFrame {
         participantes = Integer.parseInt(campoParticipantes.getText());
         Connection con = getConnection();
         PreparedStatement ps;
-        if (campoLibro.getText().isEmpty() || campoInvitado.getText().isEmpty()
-                || campoCarrera.getText().isEmpty() || campoParticipantes.getText().isEmpty() || campoHora.equals("selecciona")) {
+        if (campoInvitado.getText().isEmpty() || campoCarrera.getText().isEmpty()
+                || campoParticipantes.getText().isEmpty() || campoHora.equals("selecciona")) {
+            JOptionPane.showMessageDialog(null, "Algunos campos estan vacios");
         } else {
             try {
                 String sql = "insert into circuloLector(libro, invitado, carrera, fecha, participantes, hora) values(?,?,?,?,?,?)";
@@ -480,9 +501,9 @@ public class Crear_CLector extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoParticipantesActionPerformed
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        mostrarTabla();
-    }//GEN-LAST:event_jTextField1KeyPressed
+    private void buscarCLKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarCLKeyPressed
+        filtrarDatosCL(buscarCL.getText());
+    }//GEN-LAST:event_buscarCLKeyPressed
 
     private void campoLibroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoLibroKeyPressed
         filtrarDatos(campoLibro.getText());
@@ -525,6 +546,7 @@ public class Crear_CLector extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProgramar;
+    private javax.swing.JTextField buscarCL;
     private javax.swing.JTextField campoCarrera;
     private com.toedter.calendar.JDateChooser campoFecha;
     private javax.swing.JComboBox<String> campoHora;
@@ -546,7 +568,6 @@ public class Crear_CLector extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tablaCL;
     private javax.swing.JTable tablaconslib;
     // End of variables declaration//GEN-END:variables

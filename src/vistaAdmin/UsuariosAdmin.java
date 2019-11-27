@@ -139,17 +139,13 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Consulta y Eliminar usuarios");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Ingresa un usuario:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
-        campoDeBusqueda.setBackground(new java.awt.Color(255, 255, 255));
-        campoDeBusqueda.setForeground(new java.awt.Color(0, 0, 0));
         campoDeBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoDeBusquedaActionPerformed(evt);
@@ -165,7 +161,6 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         });
         jPanel2.add(campoDeBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 480, 30));
 
-        tablaConsulta.setBackground(new java.awt.Color(255, 255, 255));
         tablaConsulta.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         tablaConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,7 +179,6 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 840, 330));
 
         Eliminar.setBackground(new java.awt.Color(255, 255, 255));
-        Eliminar.setForeground(new java.awt.Color(0, 0, 0));
         Eliminar.setText("Eliminar");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,7 +188,6 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jPanel2.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 100, 30));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,23 +205,18 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Crear nuevo usuario");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Nombre");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, 20));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Seleccionar tipo de usuario:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, 20));
 
-        campoNombre.setBackground(new java.awt.Color(255, 255, 255));
         campoNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        campoNombre.setForeground(new java.awt.Color(0, 0, 0));
         campoNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoNombreActionPerformed(evt);
@@ -237,13 +225,11 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         jPanel1.add(campoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, 137, 30));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Seleccionar nivel de privilegio:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, 20));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Registrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,9 +238,7 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 510, -1, 30));
 
-        tipoUsuario.setBackground(new java.awt.Color(255, 255, 255));
         tipoUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        tipoUsuario.setForeground(new java.awt.Color(0, 0, 0));
         tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alumno", "Docente" }));
         tipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,27 +247,17 @@ public class UsuariosAdmin extends javax.swing.JFrame {
         });
         jPanel1.add(tipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 137, 30));
 
-        nivelPrivilegio.setBackground(new java.awt.Color(255, 255, 255));
         nivelPrivilegio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        nivelPrivilegio.setForeground(new java.awt.Color(0, 0, 0));
         nivelPrivilegio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estándar", "Administrador" }));
         jPanel1.add(nivelPrivilegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 137, 30));
-
-        campoContra2.setBackground(new java.awt.Color(255, 255, 255));
-        campoContra2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(campoContra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 430, 140, 30));
-
-        campoContra.setBackground(new java.awt.Color(255, 255, 255));
-        campoContra.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(campoContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 370, 140, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Repetir contraseña");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Contraseña");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, -1, 20));
 
@@ -351,13 +325,12 @@ public class UsuariosAdmin extends javax.swing.JFrame {
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         int fila = tablaConsulta.getSelectedRow();
-        System.out.println(fila);
         String valor = tablaConsulta.getValueAt(fila, 0).toString();
         if (fila <= 0) {
             JOptionPane.showMessageDialog(null, "Selecciona un usuario");
         } else {
             try {
-                PreparedStatement ps = con.prepareStatement("DELETE FROM docente WHERE nombre ='" + valor + "'");
+                PreparedStatement ps = con.prepareStatement("DELETE FROM usuarios WHERE nombre ='" + valor + "'");
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Dato eliminado");
                 mostrarTabla();
